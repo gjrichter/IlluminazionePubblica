@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+
+<head>
+  <title>IXMAPS Sample</title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="Guenter Richter">
+  <meta name="Keywords" content="map SVG XML Javascript Google Maps">
+  <meta name="Description" content="Test page for SVGGIS map applications on Google Basemap">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+  <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+
+  <!--========================================================================= 
+	  we need scripting
+  <!--========================================================================= -->
+	
+  <noscript><div style="position:absolute;top:100px;left:100px;width:500px"><b>JavaScript must be enabled in order for you to use iXMaps.</b><br><br>
+  However, it seems JavaScript is either disabled or not supported by your browser.
+  To view the map application, enable JavaScript by changing your browser options, and then
+  try again.</div>
+  </noscript>
+
+  <!--========================================================================= -->
+
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/ixmaps-ui.css" rel="stylesheet" type="text/css"/>
+
+  <!--========================================================================= -->
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="http://code.jquery.com/ui/1.8.16/jquery-ui.min.js"></script>
+
+  <script src="../libs/getUrlParam/js/jquery.getUrlParam.js"></script>
+
+  <script type="text/javascript" src="../js/htmlgui_story.js" > </script>
+
+  <!--========================================================================= -->
+
+<script type="text/javascript">
+
+(function( ixmaps, $, undefined ) {
+
+	var szStoryRoot = ""; 
+	var xmlLegendItems = null; 
+	var szTheme = null; 
+	
+	$(document).ready(function() {
+
+		if ( parent ){
+			window.ixmaps = parent.window.ixmaps;
+		}else
+		if ( window.opener ){
+			window.ixmaps = window.opener.ixmaps;
+		}
+		else{
+			alert("error: missing parent window for map queries !");
+		}
+
+		window.ixmaps.loadStory = ixmaps.loadStory;
+		ixmaps.loadStory($(document).getUrlParam('story'),"silent");	
+	
+	});
+
+}( window.ixmaps = window.ixmaps || {}, jQuery ));
+
+</script>
+
+  <!--========================================================================= -->
+
+</head>
+
+	<body>
+		<div id="story-board" style="visibility:visible"  >
+		</div>
+	</body>
+
+</html>

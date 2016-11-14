@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+  <title>IXMAPS Sample</title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="Guenter Richter">
+  <meta name="Keywords" content="map SVG XML Javascript Google Maps">
+  <meta name="Description" content="Test page for SVGGIS map applications on Google Basemap">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+  <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+
+  <!--========================================================================= 
+	  we need scripting
+  <!--========================================================================= -->
+	
+  <noscript><div style="position:absolute;top:100px;left:100px;width:500px"><b>JavaScript must be enabled in order for you to use iXMaps.</b><br><br>
+  However, it seems JavaScript is either disabled or not supported by your browser.
+  To view the map application, enable JavaScript by changing your browser options, and then
+  try again.</div>
+  </noscript>
+
+  <!--========================================================================= -->
+
+  <link href="../../ui/libs/jquery/ui/css/ixmaps/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/ixmaps-ui.css" rel="stylesheet" type="text/css"/>
+
+<style type="text/css">
+
+/* style the scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.1); 
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background: rgba(232,232,232,0.6); 
+    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.1); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(222,222,222,0.4); 
+}
+</style>
+
+  <!--========================================================================= -->
+
+  <script src = "../../ui/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src = "../../ui/libs/jquery/ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+
+  <script src="../libs/beforeafter/js/jquery.beforeafter-canib.js"></script>
+  <script src="../libs/getUrlParam/js/jquery.getUrlParam.js"></script>
+  <script src="../libs/modernizr/js/testsvg.js"></script>
+
+  <script type="text/javascript" src="../js/htmlgui.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_query.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_sync.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_sync_GoogleV3.js" > </script>
+
+  <script type="text/javascript" src="../js/htmlgui_story.js" > </script>
+
+  <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+  <!--========================================================================= -->
+
+<script type="text/javascript">
+
+(function( ixmaps, $, undefined ) {
+
+	var szStoryRoot = ""; 
+	var xmlLegendItems = null; 
+	var szTheme = null; 
+	
+	$(document).ready(function() {
+
+		if (!Modernizr.svg){
+			alert("svg not supported");
+		}
+		var szMapService = unescape($(document).getUrlParam('mapservice'));
+		var szUrl = $(document).getUrlParam('svggis');
+
+		// check predefined map height against window height
+
+		var maxHeight = window.innerHeight;
+		maxHeight -= parseInt($("#ixmap").css('top')) + 10;
+
+		if ( maxHeight < parseInt($("#ixmap").css('height')) ){
+			$("#ixmap").css('height',maxHeight +'px');
+			$("#story-board").css('height',maxHeight +'px');
+		}
+
+		var maxWidth = window.innerWidth;
+		if ( maxWidth < (parseInt($("#ixmap").css('width')) + parseInt($("#story-board").css('width'))) ){
+			var mapWidth = window.innerWidth*0.65;
+			var storyWidth = maxWidth-mapWidth-15;
+			$("#banner").css('left',0+'px');
+			$("#banner").css('width',mapWidth+'px');
+			$("#ixmap").css('left',0+'px');
+			$("#ixmap").css('width',mapWidth+'px');
+			$("#story-board").css('left',mapWidth+10+'px');
+			$("#story-board").css('width',storyWidth+'px');
+		}
+
+		// create the map app
+
+		map = new ixmaps.syncMap("ixmap",{mapService:szMapService,svg:szUrl,mapsize:"fix",mode:"nolegend",controls:"small"});	
+
+		$( "#zoom" ).button({ icons:{secondary:'ui-icon-zoomin'}});
+		$( "#pan" ).button({ icons:{secondary:'ui-icon-arrow-4'}});
+		$( "#info" ).button({ icons:{secondary:'ui-icon-info'}});
+		$( "#select" ).button({ icons:{secondary:'ui-icon-extlink'}});
+
+		$( "#tools" ).buttonset();
+
+		$( "#opaplus" )
+			.button()
+			.parent()
+				.buttonset();
+
+		$( "#objminus" )
+			.button()
+			.parent()
+				.buttonset();
+
+		$( "#toolbar" ).css("visibility","visible");
+
+		ixmaps.loadStory($(document).getUrlParam('story'));	
+	
+	});
+
+}( window.ixmaps = window.ixmaps || {}, jQuery ));
+
+</script>
+
+  <!--========================================================================= -->
+
+</head>
+
+<body style="overflow:hidden">
+
+	<!--========================================================================= 
+		the menu
+	<!--========================================================================= -->
+
+		<div id="banner" style="position:absolute;left:50px;top:13px;width:640px;height:20px;">
+
+			<span id="toolbar" style="visibility:hidden;">
+				<form>
+				<span id="tools" style="position:relative;top:-4px;left:-1px;" >
+					<input type="radio" id="zoom"   name="tools" onclick="javascript:ixmaps.mapTool('zoomrect')" /><label for="zoom">Zoom</label>
+					<input type="radio" id="pan"    name="tools" onclick="javascript:ixmaps.mapTool('pan')" /><label for="pan">Pan</label>
+					<input type="radio" id="info"   name="tools" onclick="javascript:ixmaps.mapTool('info')" checked="checked" /><label for="info">Info&nbsp;</label>
+					<input type="radio" id="select" name="tools" onclick="javascript:ixmaps.mapTool('selectrect')" /><label for="select">Select</label>
+				</span>
+
+				<!--  share buttons -->
+				<span id="share" style="position:relative;top:-2px;">
+					<!--  create popout map -->
+					<span style="position:relative;left:2px;top:1px;">
+						<input id="popout" type="image" src="../images/popout.png" height="14px" alt="popout map" title="popout map" 
+								onclick="javascript:ixmaps.popOutMap('window');return false;" />
+					</span>
+
+					<!--  share map -->
+					<span style="position:relative;left:3px;top:2px;">
+						<input id="share" type="image" src="../images/link1.png" height="18px" alt="share map" title="share map" 
+								onclick="javascript:ixmaps.shareMap('dialog');return false;" />
+					</span>
+
+					<!--  mail map -->
+					<span style="position:relative;left:6px;">
+						<input id="mail" type="image" src="../images/envelope_light.png" height="14px" alt="mail map" title="mail map" 
+								onclick="javascript:ixmaps.mailMap('dialog');return false;" />
+					</span>
+					<!--  reset map -->
+					<span style="position:relative;left:6px;top:3px;">
+						<input id="reset" type="image" src="../images/reset.png" height="20px" alt="reset map" title="reset map" 
+								onclick="javascript:ixmaps.clearAll();return false;" />
+					</span>
+				</span>
+
+
+				<!-- end share  -->
+				<div id="opacity" style="float:right" >
+						<input type="image" src="../images/circle-_transparent.png" alt="opacity -" title="opacity -" height="22"
+								onclick="javascript:ixmaps.setSVGMapOpacity(-0.1,'relative');return false;" />
+						<span style="font-family:arial;font-size:12;color:gray;vertical-align:48%;margin-left:-5px;margin-right:-2px;"
+								onclick="javascript:ixmaps.toggleSVGMapOpacity();return false;">
+							<a href="">opacity</a>
+						</span>
+						<input type="image" src="../images/circle+_transparent.png" alt="opacity +" title="opacity +" height="22"
+								onclick="javascript:ixmaps.setSVGMapOpacity(0.1,'relative');return false;" />
+				</div>
+				<div id="scaling" style="float:right" >
+						<input type="image" src="../images/circle-_transparent.png" alt="size -" title="size -" height="22"
+								onclick="javascript:ixmaps.changeObjectScaling(0.75);return false;" />
+						<span style="font-family:arial;font-size:12;color:gray;vertical-align:48%;margin-left:-5px;margin-right:-2px;"
+								onclick="javascript:ixmaps.changeObjectScaling(0);return false;">
+							<a href="">chartsize</a>
+						</span>
+						<input type="image" src="../images/circle+_transparent.png" alt="size +" title="size +" height="22"
+								onclick="javascript:ixmaps.changeObjectScaling(1/0.75);return false;" />
+				</div>
+
+				<div id="values1" style="float:right;margin-top:3px;margin-right:10px;" >
+					<span style="font-family:arial;font-size:12;color:gray;vertical-align:52%;margin-left:-5px;margin-right:-2px;"
+							onclick="javascript:ixmaps.toggleThemeValues();return false;">
+						<a href="" title="switch theme values display">&#177;&nbsp;values</a>
+					</span>
+				</div>
+
+				</form>
+
+			</span>
+
+
+		</div>
+
+	<!--========================================================================= 
+		the story board
+	<!--========================================================================= -->
+
+		<div id="story-board" style="position:absolute;left:720px;top:10px;margin-top:0px;width:450px;padding-right:5px;height:680px;display:block;overflow:auto">
+			<h2 style="background:#fafafa;color:white"> story board ... </h2>
+		</div>
+
+	<!--========================================================================= 
+		the map space
+	<!--========================================================================= -->
+
+		<div id="ixmap" style="position:absolute;top:35px;left:50px;width:640px;height:680px;background:#ffffff;">
+
+			<div id="logo" style="position:absolute;bottom:10px;right:10px;">
+				<img src="../images/ixmaps_logo_grey_transparent.png" height="16px"/><span style="color:#bbbbbb;font-family:verdana;font-style:italic;font-size:10px;"> loading ...<span> 
+			</div>
+
+		</div>
+
+	<!--========================================================================= 
+		loading, messages, help etc
+	<!--========================================================================= -->
+
+		<div id="divloading" style="pointer-events:none;z-index:99">
+			<div id="loading-text-div" style="position:absolute;top:45%;width:65%">
+				<p id="loading-text" style="font-family:serif;font-size:48px;color:#f0f0f0;text-align:center">
+				</p>
+			</div>
+			<div id="loading-image" style="position:absolute;top:45%;left:26%;">
+				<p id="loading" style=" margin-top:1em;
+										padding:2px;
+										padding-left:5px;
+										padding-bottom:10px;
+										background:white;
+										">
+										<img style="margin-bottom:-12px;" alt="mill" src="../images/loading.gif" />
+				</p>
+			</div>
+		</div>
+		<div id="velo" style="	visibility:hidden;
+								background-color:#444444;
+								opacity:0.2;
+								position:absolute;
+								top:0px;
+								left:0px;
+								width:100%;
+								height:100%;
+								z-index:1000;" width="100%" height="100%"  >
+		</div>
+		<div id="help" style="visibility:hidden"  >
+		</div>
+		<div id="dialog" style="visibility:hidden"  >
+		</div>
+		<div id="projects" style="visibility:hidden;"  >
+		</div>
+
+	<!--========================================================================= -->
+	</body>
+</html>

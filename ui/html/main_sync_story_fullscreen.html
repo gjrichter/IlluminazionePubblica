@@ -1,0 +1,425 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+
+<meta http-equiv="Content-Language" content="en-us" />
+<meta name="copyright" content="Guenter Richter"/>
+<meta name="author" content="service@medienobjekte.de"/>
+<meta name="description" content="Interactive &amp; estensible maps in HTML5"/>
+<meta name="revisit-after" content="30 days"/>
+<meta name="distribution" content="Global"/>
+<meta name="keywords" content="iXMaps,SVG,GIS,map,maps,Karten,chart,charts,pie,bar,web,geo,Visualisierung,visualisation,visualizzazione,interaktiv,interactive,interattivo,SIT,Geo,georeference,georeferenziert,geomarketing,graphical,programming,example,web application,application,web2.0"/>
+<meta name="robots" content="index,follow"/>
+<meta name="page-topic" content="iXMaps presentation wrapper, Guenter Richter, Medienobjekte"/>
+<meta name="audience" content="all, Alle"/>
+<meta name="language" content="UK, uk, english, englisch"/>
+<meta name="page-type" content="wrapper"/>
+<meta name="resource-type" content="document"/>
+<meta name="Classification" content="presentation wrapper iXMaps.com medienobjekt.de Guenter Richter"/>
+
+<link rel="stylesheet" href="../css/page.css" type="text/css" />
+<link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+
+<link href="../../ui/libs/jquery/ui/css/ixmaps/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css"/>
+<link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<link href="../css/ixmaps-ui.css" rel="stylesheet" type="text/css"/>
+
+<link id="story-css" href="#" rel="stylesheet" type="text/css"/>
+<link id="story-css-fonts" href="#" rel="stylesheet" type="text/css"/>
+
+<title>iXmaps - interactive map</title>
+
+<style type="text/css">
+.disclaimer{
+	margin-top:25px;
+	margin-left:15px;
+	font-size: 11px;
+	line-height: 14px;
+}
+.disclaimer a{
+	font-size: 11px;
+	line-height: 14px;
+}
+ul {
+	list-style: circle;
+}
+li {
+	padding: 0px 5px 5px 0px;
+	margin: 0px;
+}
+#title {
+	font-family:arial;
+	color:#444444;
+	font-size:2em;
+	line-height:1.5em;
+}
+#sidebar {
+	position:absolute;
+	top:4px;
+	right:10px;
+	width:226px;
+	color:#53637D
+}
+#sidebar-title{
+	margin-left:12px;
+	color:#aaa;
+	font-size:2em;
+}
+#sidebar-content{
+	margin-top:52px;
+}
+.sidebar-subtitle{
+	margin-top:18px;
+	margin-left:17px;
+	color:#aaa;
+}
+.sidebar-background{
+	background-image: -webkit-linear-gradient(left, rgba(255,255,255,0.0001) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,1) 10%);
+	background-image: -o-linear-gradient(left, rgba(255,255,255,0.0001) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,1) 10%);
+	background-image: -moz-linear-gradient(left, rgba(255,255,255,0.0001) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,1) 10%);
+	background-image: linear-gradient(left, rgba(255,255,255,0.0001) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,1) 10%);
+}
+#xexpandbutton{
+	-moz-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 			rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	-webkit-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	border: #bbb solid 1px;
+}
+</style>
+<style type="text/css">
+
+/* style the scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.1); 
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background: rgba(232,232,232,0.6); 
+    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.1); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(222,222,222,0.4); 
+}
+</style>
+
+<script type="text/javascript" src = "../../ui/libs/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src = "../../ui/libs/getUrlParam/js/jquery.getUrlParam.js"></script>
+<script type="text/javascript" src = "../../ui/libs/jquery/ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+
+<script type="text/javascript" src = "../../ui/js/htmlgui_api.js" > </script>
+<script type="text/javascript" src = "../../ui/js/htmlgui_story.js" > </script>
+<script type="text/javascript">
+
+
+	// -------------------------------------------------------------------
+	// initializition on document ready
+	//		- wait for the embeded map to load
+	//		- hide loading mesage
+	//		- display first theme
+	// -------------------------------------------------------------------
+
+	// delayed on document ready (see below)
+	// -------------------------------------------------------
+	ixmaps.onReady = function(){
+
+		ixmaps.iframe.waitForMap("embed-cross", function(){
+
+			$("#splash").hide("slow");
+			// $("#splash").css("visibility","hidden");
+
+			ixmaps.loadStory($(document).getUrlParam('story'));	
+		});
+	};
+
+	// wait for map and make first theme
+	// ---------------------------------
+	$(document).ready(function() {
+
+		// delay the map initializing (to give time to load iframe)
+		// --------------------------------------------------------
+		setTimeout("ixmaps.onReady()",5000);
+
+		// create the iframe with the embeddeb map 
+		// --------------------------------------------------------
+
+		var szBaseMap	= decodeURIComponent( $(document).getUrlParam('basemap')   ||
+											  $(document).getUrlParam('mapservice') );
+		var szUrl		= $(document).getUrlParam('svggis');
+
+		var szEmbedUI = "../../ui/dispatch.htm?ui=embed";
+		var szMapName = "map";
+
+		var src = szEmbedUI + "&basemap="	+ szBaseMap 
+							+ "&name="		+ szMapName 
+							+ "&svggis="	+ szUrl;
+
+		if ( $(document).getUrlParam('maptype') ){
+			src += "&maptype="+decodeURIComponent($(document).getUrlParam('maptype'));
+			}
+
+		if ( $(document).getUrlParam('allcontrols') ){
+			src += "&overlaycontrol=1";
+			src += "&mapcontrol=1";
+			src += "&options=1";
+			src += "&reset=1";
+		}else{
+			if ( $(document).getUrlParam('overlaycontrol') ){
+				src += "&overlaycontrol=1";
+			}
+			if ( $(document).getUrlParam('mapcontrol') ){
+				src += "&mapcontrol=1";
+			}
+			if ( $(document).getUrlParam('tilemap') ){
+				src += "&tilemap="+$(document).getUrlParam('tilemap');
+			}
+			if ( $(document).getUrlParam('mode') ){
+				src += "&mode="+$(document).getUrlParam('mode');;
+			}
+			if ( $(document).getUrlParam('options') ){
+				src += "&options=1";
+			}
+			if ( $(document).getUrlParam('tools') ){
+				src += "&tools=1";
+			}
+			if ( $(document).getUrlParam('reset') ){
+				src += "&reset=1";
+			}
+			if ( $(document).getUrlParam('legendcontrol') ){
+				src += "&legendcontrol=1";
+			}
+			if ( $(document).getUrlParam('nolegend') ){
+				src += "&nolegend=1";
+			}
+			if ( $(document).getUrlParam('logo') ){
+				src += "&logo=1";
+			}
+			if ( $(document).getUrlParam('themelegend') ){
+				src += "&themelegend="+$(document).getUrlParam('themelegend');
+			}
+			if ( $(document).getUrlParam('attribution') ){
+				src += "&attribution="+$(document).getUrlParam('attribution');
+			}
+			if ( $(document).getUrlParam('minimal') ){
+				src += "&minimal=1";
+				if ( $(document).getUrlParam('options') ){
+					src += "&toolbutton=1";
+				}
+				if ( $(document).getUrlParam('toolbutton') ){
+					src += "&toolbutton=1";
+				}
+			}
+		}
+		if ( $(document).getUrlParam('bookmark') ){
+			src += "&bookmark="+$(document).getUrlParam('bookmark');
+			}
+
+		$("#map").html("<iframe id='embed-cross' src=\"" + src + "\" " +
+					" width='0px' height='0px' frameborder=\"0\" marginwidth=\"0px\" style='padding:0;border:0;margin:0;' />");
+
+
+		// format the story board 
+		// --------------------------------------------------------
+		ixmaps.overlap = 40;
+		if ( $(document).getUrlParam('overlap') ){
+			ixmaps.overlap = Number($(document).getUrlParam('overlap'));
+		}
+		ixmaps.nSidebar = 50; // % !!
+		if ( $(document).getUrlParam('sidebar') ){
+			szSidebar = $(document).getUrlParam('sidebar');
+			ixmaps.nSidebar = parseInt(szSidebar);
+			if ( !szSidebar.match(/%/) ){
+				ixmaps.nSidebar	= ixmaps.nSidebar/newWidth*100;
+			}
+		}
+		ixmaps.resize();
+
+		$( "#expandbutton" ).button().click(function(e){
+							ixmaps.fullScreen();
+							});
+		$( "#collapsbutton" ).button().click(function(e){
+							ixmaps.fullScreen();
+							});
+	});
+
+	// helper for buttons (string not settable in href="" )
+	// ----------------------------------------------------
+	ixmaps.popout = function() {
+		ixmaps.embeddedApi.embeddedApi.popOutMap('window');
+		// ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.popOutMap('window')");
+	};
+	ixmaps.share = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.shareMap('dialog')" );
+	};
+	ixmaps.mail = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.mailMap('dialog')" );
+	};
+	ixmaps.execScript = function(szScript) {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.execScript(\""+szScript+"\")" );
+	};
+	ixmaps.execBookmark = function(szScript) {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.execBookmark(\""+szScript+"\")" );
+	};
+	ixmaps.clearAll = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.clearAll()" );
+	};
+	ixmaps.clearAllCharts = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.clearAllCharts()" );
+	};
+	ixmaps.clearAllChart = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.clearAllCharts()" );
+	};
+	ixmaps.clearAllChoroplethe = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.clearAllChoroplethe()" );
+	};
+
+	ixmaps.mapWidthPx = null;
+	ixmaps.containerWidthPx = null;
+	ixmaps.sidebarLeftPx = null;
+	ixmaps.fSidebar = true;
+	ixmaps.fullScreen = function() {
+		if ( !ixmaps.fSidebar ){
+
+			setTimeout('$("#embed-cross").css("width","'+String(ixmaps.mapWidthPx)+'");',500);
+			$("#sidebar").fadeIn( "slow" );
+			$("#expand").css("visibility","hidden");
+			$("#collaps").css("visibility","visible");
+
+			ixmaps.mapWidthPx = null;
+			ixmaps.containerWidthPx = null;
+			ixmaps.sidebarLeftPx = null;
+
+			ixmaps.fSidebar = true;
+		}else{
+			ixmaps.containerWidthPx = $("#container").css("width");
+			ixmaps.mapWidthPx = $("#embed-cross").css("width");
+			ixmaps.sidebarLeftPx = $("#sidebar").css("left");
+
+			setTimeout('$("#embed-cross").css("width","'+String(window.innerWidth)+'px");',500);
+			$("#sidebar").fadeOut( "slow" );
+
+			setTimeout('$("#expand").css("visibility","visible")',1000);
+			$("#collaps").css("visibility","hidden");
+
+			ixmaps.fSidebar = false;
+		}
+	};
+	ixmaps.reset = function() {
+		$("a.action").css("background-color","white");
+		$("a.action").css("font-weight","normal");
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.resetMap()" );
+	};
+
+	ixmaps.resize = function() {
+
+		var newWidth  = window.innerWidth;
+		var newHeight = window.innerHeight;
+
+		var containerWidth = $("#container").width();
+		var sidebarWidth = containerWidth/100*ixmaps.nSidebar;
+
+		if ( ixmaps.fSidebar ){
+			$("#embed-cross").css("width",(containerWidth-sidebarWidth+ixmaps.overlap)+"px");
+		}else{
+			$("#embed-cross").css("width",(containerWidth)+"px");
+		}
+		$("#embed-cross").css("height",String(newHeight-5)+"px");
+
+		ixmaps.mapWidth = $("#embed-cross").width();
+		ixmaps.mapHeight = $("#embed-cross").height();
+		ixmaps.containerWidth = $("#container").width();
+		ixmaps.containerHeight = $("#container").height();
+
+		$("#sidebar").css("top","0px");
+		$("#sidebar").css("left",String(ixmaps.mapWidth-ixmaps.overlap)+"px");
+		$("#sidebar").css("width",String(ixmaps.containerWidth - ixmaps.mapWidth + ixmaps.overlap)+"px");
+		$("#sidebar").css("height",String(ixmaps.mapHeight-20)+"px");
+
+		$("#story-board").css("margin-left",String(ixmaps.overlap/2+5)+"px");
+		$("#story-board").css("height",String(ixmaps.mapHeight-100)+"px");
+
+		ixmaps.containerWidthPx = containerWidth;
+		ixmaps.mapWidthPx = $("#embed-cross").css("width");
+		ixmaps.sidebarLeftPx = $("#sidebar").css("left");
+	};
+
+	$(window).resize(function() {
+		ixmaps.resize();
+	});
+
+</script>
+
+
+
+</head>
+
+
+<body style="margin:0;padding:0;background:#ffffff" >
+
+	<!-- facebook -->
+<!--
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+-->
+<!-- Container -->
+<div id="container" style="height:90%;width:100%;margin:0px;padding:0px;" >
+
+	<!-- panes -->
+
+	<div id="worksspace" style="margin:0px;padding:0px;" >
+	
+		<!-- embedded map -->
+
+		<div id="map" style="position:absolute;top:0px;" >
+		</div>
+
+		<!-- story -->
+
+		<div id="sidebar" class="sidebar-background" style="position:absolute;margin-top:0px;pointer-events:none;" >
+			<div id="story-board" style="display:block;overflow:auto;margin-top:70px;margin-left:100px;padding-right:30px;pointer-events:all;">
+			</div>
+		</div>
+
+		<div id="collaps" style="position:absolute;right:5px;top:8px;opacity:0.3">
+			<button type="button" id="collapsbutton" title="open sidebar" style="height:38px;width:37px;" >
+				<label for="collapsbutton" style="height:36px;" >
+					<img id="collapsbuttonicon" src="../../ui/images/collapsed.png" style="height:24px;margin-left:-8px;margin-right:-4px;" /></label></button>
+		</div>
+		<div id="expand" style="position:absolute;right:8px;top:62px;visibility:hidden;z-index:1">
+			<button type="button" id="expandbutton" title="open sidebar" style="height:38px;width:37px;" >
+				<label for="expandbutton" style="height:36px;" >
+					<img id="expandbuttonicon" src="../../ui/images/expanded.png" style="height:24px;margin-left:-8px;margin-right:-4px;" /></label></button>
+		</div>
+
+	</div>
+
+	<!-- fine Content -->
+
+
+	<!-- Footer -->
+	<!-- fine Footer -->
+
+</div>
+<!-- fine Container -->
+
+</body>
+
+</html>

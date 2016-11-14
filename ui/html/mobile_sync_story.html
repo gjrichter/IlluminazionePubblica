@@ -1,0 +1,475 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<meta charset="iso-8859-1">	
+	<title>iXmaps mobile</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+
+	<link rel="stylesheet" href="css/jquery.mobile.structure-1.1.1.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.1.1.min.css" />
+	<link rel="stylesheet" href="css/custom.css" />
+	<link rel="stylesheet" href="css/mobilemap.css" />
+	<link rel="stylesheet" href="css/tooltip.css" />
+
+	<!--
+    <style type="text/css">
+      .draggable1 {
+        position: absolute;
+        left: 30px;
+        top: 30px;
+        width: 60px;
+        height: 60px;
+        margin-left: -30px;
+        margin-top: -30px;
+
+        color: #FFF;
+        font: bold 16px Helvetica,Arial,Sans-serif;
+        text-align: center;
+        xxbackground-color: #ABF;
+        border: 3px solid #669;
+      }
+    </style>
+	-->
+<style type="text/css">
+
+/* style the scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.1); 
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background: rgba(232,232,232,0.6); 
+    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.1); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(222,222,222,0.4); 
+}
+</style>
+
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/jquery.mobile-1.1.1.min.js"></script>
+    <script src="js/jquery/plugins/jquery.getUrlParam.js"></script>
+	<script src="js/jquery/jquery.effects.core.min.js"></script>
+	<script src="js/jquery/jquery.effects.slide.min.js"></script>
+
+	<!-- user defined content provider -->
+	<script src="js/mobile_api.js" type="text/javascript"></script>
+	<!-- -->
+
+	<script type="text/javascript" src = "../../ui/js/htmlgui_api.js" > </script>
+	<script type="text/javascript" src = "../../ui/js/htmlgui_story.js" > </script>
+	<script type="text/javascript">
+
+
+	// -------------------------------------------------------------------
+	// initializition on document ready
+	//		- wait for the embeded map to load
+	//		- hide loading mesage
+	//		- display first theme
+	// -------------------------------------------------------------------
+
+	ixmaps.fTouch = false;
+
+	// delayed on document ready (see below)
+	// -------------------------------------------------------
+	ixmaps.onReady = function(){
+
+		ixmaps.iframe.waitForMap("embed-cross", function(){
+
+			$("#splash").toggle("slow");
+			// $("#splash").css("visibility","hidden");
+
+			ixmaps.loadStory($(document).getUrlParam('story'));
+			ixmaps.touchScroll("story-board");
+			
+			// if we have a touch device, make sure we start with the "pan" tool !!! 
+			if ( ixmaps.fTouch ){
+				ixmaps.mapTool('pan');
+			}
+			// set top margin for map tools
+			ixmaps.setMapWidgetMarginTop(40);
+		});
+	};
+
+	// wait for map and make first theme
+	// ---------------------------------
+	$(document).ready(function() {
+
+		// touch device ?
+		// ---------------------------------------------------------------------------------------
+
+		ixmaps.fTouch = ixmaps.isTouchDevice();
+
+		// create map !!!
+		// ---------------------------------------------------------------------------------------
+
+		ixmaps.jsapi.initView("map");
+		ixmaps.touchScroll("story-board");
+
+		// delay the map initializing (to give time to load iframe)
+		// 
+
+		setTimeout("ixmaps.onReady()",5000);
+
+		// create the iframe with the embeddeb map 
+		// 
+		var szBaseMap	= decodeURIComponent( $(document).getUrlParam('basemap')   ||
+											  $(document).getUrlParam('mapservice') );
+		var szUrl		= $(document).getUrlParam('svggis');
+
+		var szEmbedUI = "../../ui/dispatch.htm?ui=embed";
+		var szMapName = "map";
+
+		var src = szEmbedUI + "&basemap="	+ szBaseMap 
+							+ "&name="		+ szMapName 
+							+ "&svggis="	+ szUrl;
+		
+		if ( $(document).getUrlParam('maptype') ){
+			src += "&maptype="+decodeURIComponent($(document).getUrlParam('maptype'));
+			}
+
+		if ( $(document).getUrlParam('allcontrols') ){
+			src += "&overlaycontrol=1";
+			src += "&mapcontrol=1";
+			src += "&options=1";
+			src += "&reset=1";
+		}else{
+			if ( $(document).getUrlParam('overlaycontrol') ){
+				src += "&overlaycontrol=1";
+			}
+			if ( $(document).getUrlParam('mapcontrol') ){
+				src += "&mapcontrol=1";
+			}
+			if ( $(document).getUrlParam('options') ){
+				src += "&options=1";
+			}
+			if ( $(document).getUrlParam('tools') ){
+				src += "&tools=1";
+			}
+			if ( $(document).getUrlParam('reset') ){
+				src += "&reset=1";
+			}
+		}
+		if ( $(document).getUrlParam('minimal') ){
+			src += "&minimal=1";
+			}
+		if ( $(document).getUrlParam('mode') ){
+			src += "&mode="+$(document).getUrlParam('mode');
+			}
+		if ( $(document).getUrlParam('controls') ){
+			src += "&controls="+$(document).getUrlParam('controls');
+			}
+		if ( $(document).getUrlParam('bookmark') ){
+			src += "&bookmark="+$(document).getUrlParam('bookmark');
+			}
+
+		$("#map").html("<iframe id='embed-cross' src=\"" + src + "\" " +
+					" width='0px' height='0px' style='border:0;margin:0px;' />");
+
+		// load the story  
+		// --------------------------------------------------------
+		$("#embed-cross").css("width","100%");
+		$("#embed-cross").css("height","100%");
+
+		// touch work around  
+		// --------------------------------------------------------
+		/**
+		$.fn.draggable = function() {
+			var offset = null;
+			var pos = $(this).position();
+			var start = function(e) {
+			  var orig = e.originalEvent;
+			  var pos = $(this).position();
+			  offset = {
+				x: orig.changedTouches[0].pageX - pos.left,
+				y: orig.changedTouches[0].pageY - pos.top
+			  };
+			};
+			var moveMe = function(e) {
+			  e.preventDefault();
+			  var orig = e.originalEvent;
+			  $(this).css({
+				top: orig.changedTouches[0].pageY - offset.y,
+				left: orig.changedTouches[0].pageX - offset.x
+			  });
+			};
+			var end = function(e) {
+			  e.preventDefault();
+			  var orig = e.originalEvent;
+			  $(this).css({
+				top: pos.left,
+				left: pos.top
+			  });
+			};
+			var alertMe = function(e) {
+				alert("me");
+			};
+			this.bind("touchstart", start);
+			this.bind("touchmove", moveMe);
+			this.bind("touchend", end);
+			this.bind("mousedown", alertMe);
+		};
+
+		$(".draggable1").draggable();
+		**/
+		/**
+		// GR 30.06.2012 clip sidebar width
+		var sidebarWidth = ( $("#container").width() - $("#embed-cross").width() - 10);
+		sidebarWidth = Math.min(350,Math.max(250,sidebarWidth));
+		$("#embed-cross").css("width",($("#container").width()-sidebarWidth)+"px");
+
+		ixmaps.mapTop   = $("#embed-cross").offset().top;
+		ixmaps.mapWidth = $("#embed-cross").width();
+		ixmaps.mapHeight = $("#embed-cross").height();
+		ixmaps.containerWidth = $("#container").width();
+		ixmaps.containerHeight = $("#container").height();
+
+
+
+		$("#sidebar").css("top",String(ixmaps.mapTop-25)+"px");
+		$("#sidebar").css("left",String(ixmaps.mapWidth+10)+"px");
+		$("#sidebar").css("width",String(ixmaps.containerWidth - ixmaps.mapWidth - 10)+"px");
+		$("#sidebar").css("height",String(ixmaps.mapHeight)+"px");
+		**/
+
+	});
+
+	// helper for buttons (string not settable in href="" )
+	// ----------------------------------------------------
+	ixmaps.popout = function() {
+		ixmaps.embeddedApi.popOutMap('window');
+		// ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.popOutMap('window')");
+	};
+	ixmaps.share = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.shareMap('dialog')" );
+	};
+	ixmaps.mail = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.mailMap('dialog')" );
+	};
+	ixmaps.tools = function(e) {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.openDialog("+e+",'dialog','./popuptools_jquery.html','','right',450,300)" );
+	};
+	ixmaps.mapTool = function(szTool) {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.mapTool(\""+szTool+"\")" );
+	};
+	ixmaps.execScript = function(szScript) {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.execScript(\""+szScript+"\")" );
+	};
+	ixmaps.execBookmark = function(szScript) {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.execBookmark(\""+szScript+"\")" );
+	};
+	ixmaps.clearAll = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.clearAll()" );
+	};
+	ixmaps.clearAllCharts = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.clearAllCharts()" );
+	};
+	ixmaps.clearAllChart = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.clearAllCharts()" );
+	};
+	ixmaps.clearAllChoroplethe = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.clearAllChoroplethe()" );
+	};
+	ixmaps.clearOverlays = function() {
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.clearOverlays()" );
+	};
+
+	ixmaps.mapWidthPx = null;
+	ixmaps.containerWidthPx = null;
+	ixmaps.fullScreen = function() {
+		if ( ixmaps.mapWidthPx ){
+			$("#container").css("width",ixmaps.containerWidthPx);
+			$("#embed-cross").css("width",ixmaps.mapWidthPx);
+			$("#sidebar").css("visibility","visible");
+			ixmaps.mapWidthPx = null;
+			ixmaps.containerWidthPx = null;
+		}else{
+			ixmaps.mapWidthPx = $("#embed-cross").css("width");
+			ixmaps.containerWidthPx = $("#container").css("width");
+			//$("#container").css("width","100%");
+			$("#embed-cross").css("width","100%");
+			$("#sidebar").css("visibility","hidden");
+		}
+	};
+	ixmaps.reset = function() {
+		$("a.action").css("background-color","white");
+		$("a.action").css("font-weight","normal");
+		ixmaps.iframe.exec("embed-cross","ixmaps.embeddedApi.resetMap()" );
+	};
+
+	$(window).resize(function() {
+		try {
+			ixmaps.jsapi.onWindowResize(null,false); 
+		} catch (e){} 
+	});
+
+</script>
+
+</head> 
+<body style="margin:0px;padding:0px;"> 
+
+	<div data-role="page" id="mobile_map" >
+
+		<div id="hdr" data-role="header" data-position="fixed" data-id="myHeader" data-theme="f" style="z-index:9999;border-bottom: #bbb solid 1px;	border-radius:0;height:45px;">
+
+			<!-- sidebar on/off -->
+			<div  style="float:left;margin-top:5px;">
+				<a href="javascript:ixmaps.jsapi.setView('next');" class="ui-btn ui-btn-up-c" style="float:left;">
+					<img id="view-select-icon" style="align:center;" src="resources/icons/list.png" height="28px;" style="padding-left:-10px;">
+				</a>
+			</div>
+
+			<!-- filter ... -->
+			<!--
+			<div  style="float:left;margin-left:10px;margin-top:-2px;">
+				<form id="IndicatorFilterForm" action="javascript:ixmaps.jsapi.search();" name="IndicatorFilterForm">
+					<input id="query" type="text" value=" cerca ..." style="font-size:14px;width:110px;max-width:200px;height:34px;border:none;" title="query map items" onkeyup="javascript:ixmaps.jsapi.search();" onblur="if(this.value=='') this.value=' filtro ...';" onfocus="if(this.value==' cerca ...') this.value='';"/>	
+				</form>
+			</div>
+			-->
+			<!-- buttons -->
+			<div style="float:right;margin-right:0px;margin-top:5px;">
+
+
+				<a href="javascript:ixmaps.clearOverlays();" class="ui-btn ui-btn-up-c" style="float:left;">
+					<img style="align:center;" src="resources/icons/clear_blu.png" height="28px;">
+				</a>
+				<a href="javascript:ixmaps.tools(event);" class="ui-btn ui-btn-up-c" style="float:left;">
+					<img style="align:center;" src="resources/icons/gears_blu.png" height="28px;">
+				</a>
+				<a href="javascript:ixmaps.share();" class="ui-btn ui-btn-up-c" style="float:left;">
+					<img style="align:center;" src="resources/icons/share_blu.png" height="28px;">
+				</a>
+				<a href="javascript:ixmaps.reset();" class="ui-btn ui-btn-up-c" style="float:left;">
+					<img style="align:center;" src="resources/icons/reset_blu.png" height="28px;">
+				</a>
+				<a href="javascript:ixmaps.jsapi.layerDialog();" class="ui-btn ui-btn-up-c" style="float:left;">
+					<img style="align:center;" src="resources/icons/menu.png" height="28px;">
+				</a>
+
+
+
+			</div>
+			<!---
+			<div id="showtimelinedate" style="float:left;margin-left:15px;margin-top:5px;border:solid #ddd 0px;color:#ddd;font-family:verdana;overflow:hidden">
+			</div>
+
+			<div id="timelapbuttons" style="float:left;margin-left:-20px;margin-top:3px;visibility:hidden" >
+				<input type="radio" id="today"   name="tools" onclick="avascript:ixmaps.jsapi.setTimeScope('today')" />
+					<label for="today" title="zoom with rect" >giorno</label>
+				<input type="radio" id="week"    name="tools" onclick="javascript:ixmaps.jsapi.setTimeScope('week')"  />
+					<label for="week" title="pan with basemap" >settimana</label>
+				<input type="radio" id="month"   name="tools" onclick="avascript:ixmaps.jsapi.setTimeScope('month')" />
+					<label for="month" title="show info of map items" >mese</label>
+				<input type="radio" id="all" name="tools" onclick="avascript:ixmaps.jsapi.setTimeScope('off')" checked="checked"  />
+					<label for="all" title="select map items with rect" >tutto</label>
+			</div>
+			--->
+		</div><!-- /header -->
+
+		<!-- content = map -->
+		<div id="content" data-role="content" style="padding:0;margin:0;" >
+		
+			<!--========================================================================= 
+				sidebar
+			<!--========================================================================= -->
+
+			<div id="sidebar" data-role="content" style="padding:0;margin:0;padding-right:5px;" >
+				<div id="story-board" style="display:block;overflow:auto;padding-left:5px;">
+					<h2 style="background:#fafafa;color:white;margin-top:20px;"> story board ... </h2>
+				</div>
+				<!-- legend --> 
+			</div>
+
+			<!--========================================================================= 
+				map
+			<!--========================================================================= -->
+
+			<div id="map" style="padding:0;margin:0;">
+			</div>
+
+			<!-- footer bar handle -->
+			<div id="view-up" class="draggable" style="position:relative;top:-50px;height:45px;z-index:9999;margin:0;padding:0;opacity:0.9">
+				<a href="javascript:ixmaps.jsapi.setView('next');"
+					class="ui-btn ui-btn-up-d handle-button" style="width:100px;margin-left:auto;margin-right:auto;">
+					<img id="view-up-icon1" style="align:center;" src="resources/icons/expanded-blu.png" height="14px;" style="padding-left:-10px;">
+					<img id="view-up-icon2" style="align:center;" src="resources/icons/expanded-blu.png" height="14px;" style="padding-left:-10px;">
+					<img id="view-up-icon3" style="align:center;" src="resources/icons/expanded-blu.png" height="14px;" style="padding-left:-10px;">
+				</a>
+			</div>
+
+			<!--========================================================================= 
+				dialog overlays
+			<!--========================================================================= -->
+
+			<div id="layer-dialog" style="position:absolute;right:0px;top:0px;display:none;background:#f8f8f8;height:inherit;">
+			</div>
+
+			<div id="feed-dialog" style="position:absolute;left:0px;top:0px;width:100%;height:100%;display:none;">
+				<div id="feed-dialog-div" class="dialog" style="position:relative;float:right;max-width:580px;padding:0px 40px 20px 25px;background:#f8f8f8;height:inherit;">
+					<div id="feed-list" style="overflow:auto;" >
+					</div>
+				</div>
+			</div>
+
+			<div id="myIntroDiv" style="position:absolute;left:0px;top:0px;width:100%;height:100%;pointer-events:none;opacity:0.5;" >
+				<img src="./resources/help/intro.png" style="width:100%;"/>
+			</div>
+
+
+		</div><!-- /content -->
+
+		<div id="footerloading" style="position:absolute;top:350px;left:150px;pointer-events:none;">
+			<p id="loading" class="ui-corner-all"
+							style=" position:relative;
+									top:0px;
+									left:0px;
+									padding:0px;
+									margin:0px;
+									padding-top:-2px;
+									padding-bottom:5px;
+									padding-left:15px;
+									visibility:hidden;
+									background:white;
+									-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									opacity:0.8;
+									">
+									<span id="loading-message" style="position:relative;top:-8px;padding-right:10px;font-size:1.5em;color:#666666">caricando...</span><img style="position:relative;top:6px;left:-5px;" alt="mill" src="resources/icons/loading.gif" height="44px" />
+			</p>
+			<p id="error" class="ui-corner-all"
+							style=" position:relative;
+									top:-50px;
+									left:-20px;
+									padding:0px;
+									margin:0px;
+									padding-top:-2px;
+									padding-bottom:5px;
+									padding-left:15px;
+									visibility:hidden;
+									background:white;
+									-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									opacity:0.8;
+									">
+									<span id="error-message" style="position:relative;top:2px;padding-right:10px;font-size:1.5em;color:#666666"></span>
+			</p>
+		</div>
+
+	</div><!-- /page -->
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html> <head> <title>ixmaps theme editor</title>
+<head>
+
+  <link href="../../ui/libs/jquery/ui/css/ixmaps/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css"/>
+  <link href="../../ui/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/popuptools.css" rel="stylesheet" type="text/css" >
+
+  <link href="../../ui/libs/codemirror-3.16/lib/codemirror.css" rel="stylesheet" type="text/css" >
+
+  <script src = "../../ui/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src = "../../ui/libs/jquery/ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+
+  <script src = "../../ui/libs/codemirror-3.16/lib/codemirror.js"></script>
+  <script src = "../../ui/libs/codemirror-3.16/mode/xml/xml.js"></script>
+  <script src = "../../ui/libs/codemirror-3.16/mode/css/css.js"></script> 
+  <script src = "../../ui/libs/codemirror-3.16/mode/javascript/javascript.js"></script>
+  <script src = "../../ui/libs/codemirror-3.16/addon/selection/active-line.js"></script>
+  <script src = "../../ui/libs/codemirror-3.16/addon/edit/matchbrackets.js"></script>
+  <script src = "../../ui/libs/codemirror-3.16/addon/comment/continuecomment.js"></script>
+  <script src = "../../ui/libs/codemirror-3.16/addon/comment/comment.js"></script>
+
+  </head>
+  <body id="DOMViewer" >
+
+	<div>
+		<textarea id="code" name="code" >
+		</textarea>
+	</div>
+	<hr>
+	<input type="button" onclick="javascript:ixmaps.applyEditorTheme()" value="apply"></input>
+  </body>
+
+  <script type="text/javascript">
+	var ixmaps = null;
+	if ( window.opener ){
+		ixmaps = window.opener.ixmaps;
+	}else
+	if ( parent ){
+		ixmaps = parent.window.ixmaps;
+	}
+	else{
+		alert("error: missing parent window for themes !");
+	}
+  
+   	/**************************************************************** 
+	 *
+	 * Theme 
+	 *
+	 ****************************************************************/
+
+	/**
+	 * This is the Theme class.  
+	 * It realizes an object to configure and realize a map theme 
+	 * @constructor
+	 * @throws 
+	 * @return A new Theme object
+	 */
+	function Theme(definition) {
+		this.obj = null;
+		this.szTheme = null;
+
+		if ( typeof(definition) == "string" ){
+			this.szTheme = definition;
+			this.parse(definition);
+		}else{
+			this.obj = definition;
+			//this.szTheme = JSON.stringify(definition);
+		}
+	}
+	Theme.prototype.parse = function(szThemeDef){
+		var szRaw = szThemeDef.replace(/\n\t+/g,'');
+		try	{
+			this.obj = JSON.parse(szRaw);
+		} catch (e){
+			ixmaps.parentApi.error("Code: "+e);
+		}
+	};
+	Theme.prototype.getString = function(){
+		if ( !this.szTheme ){
+			this.szTheme = JSON.stringify(this.obj);
+		}
+		return this.szTheme;
+	};
+	Theme.prototype.getObj = function(){
+		if ( !this.obj ){
+			this.parse(definition);
+		}
+		return this.obj;
+	};
+	Theme.prototype.getPrettyString = function(){
+		this.szPrettyString = "";
+		this.tab = 1;
+		this.recurs = 0;
+		this.formatObj(this.obj);
+		return this.szPrettyString;
+	};
+	Theme.prototype.isArray = function(obj) {
+		return Object.prototype.toString.call(obj) === '[object Array]';
+	};
+	Theme.prototype.formatObj = function(obj){
+
+		if ( ++this.recurs > 10 ){
+			return;
+		}
+		if ( this.isArray(obj) ){
+
+			this.szPrettyString += '[';
+			var n = 0;
+			for ( var a in obj ){
+				if ( typeof(obj[a]) == "object" ){
+					this.szPrettyString += (n?',':'');
+					this.tab++;
+					this.formatObj(obj[a]);
+					this.tab--;
+				}else{
+					this.szPrettyString += (n?',\n':'\n') + (this.getIndent()) + '"'+String(obj[a]).replace(/\"/,"\'")+'"';
+				}
+				n++;
+			}
+			this.szPrettyString += ']';
+
+		}
+		else{
+
+			var n = 0;
+			for ( var a in obj ){
+				if ( a == "parent" || a == "listItem" || a == "gOverlayObject" || a == "gOverlayObjectPartsA" || a == "setLine" || a == "setPolygon" || a == "setPosition"){
+					continue;
+				}
+				if ( obj[a] == null ){
+					continue;
+				}
+				if ( typeof(obj[a]) == "object" ){
+					this.szPrettyString += (n?',\n':'\n') + (this.getIndent()) + '"'+a+'": ' ;
+					this.tab++;
+					this.formatObj(obj[a]);
+					this.tab--;
+				}else{
+					this.szPrettyString += (n?',\n':'{\n') + (this.getIndent()) + '"'+a+'": "'+String(obj[a]).replace(/\"/,"\'")+'"';
+					n++;
+				}
+			}
+			this.szPrettyString += '\n'+(this.getIndent())+'}';
+		}
+
+		this.recurs--;
+	};
+	Theme.prototype.getIndent = function(){
+		var szTab = "";
+		for ( var i=0; i<this.tab; i++ ){
+			szTab += "\t";
+		}
+		return szTab;
+	};
+
+   	/**************************************************************** 
+	 *
+	 * make theme definition string 
+	 *
+	 ****************************************************************/
+  
+	var themeObj =	ixmaps.getThemeDefinitionObj();
+
+	ixmaps.editorData = CodeMirror.fromTextArea(document.getElementById('code'), {
+		  lineNumbers: true,
+		  lineWrapping: false,
+          mode: "text/typescript"
+		});
+		ixmaps.editorData.setValue(new Theme(themeObj).getPrettyString());
+
+
+	ixmaps.applyEditorTheme = function(){
+
+		if ( !ixmaps.editorData ){
+			ixmaps.parentApi.error("no theme defined!");
+			return;
+		}
+
+		var szThemeDef = ixmaps.editorData.getValue();
+
+		var theme = new Theme(szThemeDef);
+		var themeDefObj = theme.obj;
+
+		/***
+		**
+		**	make function javascript call and execute by eval(...)
+		**
+		**/
+
+		var szLayer		= themeDefObj.layer;
+		var szField		= themeDefObj.field;
+		var szField100	= themeDefObj.field100 || "";
+
+		if ( szLayer.length == 0 || szField.length == 0 ){
+			ixmaps.parentApi.error("no layer/fields defined!");
+			return;
+		}
+
+		var szStyle = "";
+		for ( a in themeDefObj.style ){
+			if ( !((a == "layer")  ||
+				   (a == "field")  ||
+				   (a == "field100")) ){
+				szStyle += a +':'+ themeDefObj.style[a] + ";";
+			}
+		}
+		szCallTheme = "ixmaps.embeddedSVG.window.map.Api.newMapTheme('"+szLayer+"','"+szField+"','"+szField100+"','"+szStyle+"')";
+
+		eval(szCallTheme);
+	}
+
+  </script>
+
+ </html> 
+
+	

@@ -1,0 +1,1009 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>IXMAPS Sample</title>
+  <meta name="Author" content="Guenter Richter">
+  <meta name="Keywords" content="map SVG HTML5 Javascript maps interactive charts ixmaps">
+  <meta name="Description" content="core html page for ixmaps SVG interactive map applications in overlay on mapstraction basemaps">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+
+  <!--========================================================================= 
+	  we need scripting
+  <!--========================================================================= -->
+	
+  <noscript><div style="position:absolute;top:100px;left:100px;width:500px"><b>JavaScript must be enabled in order for you to use iXMaps.</b><br><br>
+  However, it seems JavaScript is either disabled or not supported by your browser.
+  To view the map application, enable JavaScript by changing your browser options, and then
+  try again.</div>
+  </noscript>
+
+  <!--========================================================================= -->
+
+  <link href="../../ui/libs/jquery/ui/css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/custom.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/icomoon.css" rel="stylesheet" type="text/css"/>
+
+  <link id="story-css" href="#" rel="stylesheet" type="text/css"/>
+  <link id="story-css-fonts" href="#" rel="stylesheet" type="text/css"/>
+
+  <!--========================================================================= -->
+
+<style type="text/css">
+	a:hover {
+		background-color:yellow;
+		text-decoration: underline;  
+	} 
+</style>
+<style type="text/css">
+
+/* style the scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.1); 
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background: rgba(232,232,232,0.6); 
+    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.1); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(222,222,222,0.4); 
+}
+
+.ui-dialog {
+	-moz-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 			rgba(0,0,0,.3) /*{global-box-shadow-color}*/ ;
+	-webkit-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.3) /*{global-box-shadow-color}*/ ;
+	box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.3) /*{global-box-shadow-color}*/ ;
+	}
+#ixmap{
+	-moz-box-shadow: 0px 2px 4px /*{global-box-shadow-size}*/ 			rgba(0,0,0,.5) /*{global-box-shadow-color}*/ ;
+	-webkit-box-shadow: 0px 2px 4px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.5) /*{global-box-shadow-color}*/ ;
+	box-shadow: 0px 2px 4px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.5) /*{global-box-shadow-color}*/ ;
+}
+#opensidebarbutton{
+	-moz-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 			rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	-webkit-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	background:	#ffffff;
+	border: #ccc solid 1px;
+	border-radius:0.5em;
+}
+#switchmodebutton{
+	-moz-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 			rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	-webkit-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	background:	#ffffff url(./resources/icons/arrow_dk_grey_down.png) no-repeat 90% 90%;
+	background-size:					8px;
+	border: #ccc solid 1px;
+	border-radius:0.5em;
+}
+#switchtoolsbutton{
+	-moz-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 			rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	-webkit-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	background:	#ffffff;
+	border: #ccc solid 1px;
+	border-radius:0.5em;
+}
+#switchinfobutton{
+	-moz-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 			rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	-webkit-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	background:	#ffffff;
+	border: #ccc solid 1px;
+	border-radius:0.5em;
+}
+#switchlegendbutton{
+	-moz-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 			rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	-webkit-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.2) /*{global-box-shadow-color}*/ ;
+	background:	#f8f8f8;
+	border: #ccc solid 1px;
+	border-radius:0.4em;
+}
+
+.colorlist {
+	padding:0px;
+	margin:0px;
+	margin-left:-10px;
+	border:0;
+}
+.colorlistitem {
+	padding:1px;
+	margin:3px;
+	border:0;
+}
+.colorlistitem > a {
+	text-decoration: none;
+	padding:3px;
+	margin:3px;
+	border:0;
+}
+.colorlistitem > a:hover {
+	text-decoration: none;
+	background: #fd8;
+	xborder:#aaa solid 1px;
+}
+a.theme-button {
+	text-decoration: none;
+}
+span.theme-button {
+	font-size:14px;
+	color:#444444;
+	background:#ffffff;
+	padding:0.5em;
+}
+table.theme-legend {
+    max-width: 300px;
+}
+td.theme-legend {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+td.theme-legend-count {
+    width: 100px;
+    overflow: hidden;
+}
+#attribution a{
+	text-decoration:none;
+}
+p.legend-description {
+	margin-top:1em;
+	margin-bottom:0px;
+	font-size:0.6em;
+}
+
+</style>
+<style type="text/css">
+.draggable {
+	position: absolute;
+	left: 30px;
+	top: 30px;
+	width: 60px;
+	height: 60px;
+	margin-left: -30px;
+	margin-top: -30px;
+
+	color: #FFF;
+	font: bold 16px Helvetica,Arial,Sans-serif;
+	text-align: center;
+}
+.androideventpane {
+	position: absolute;
+	left: 30px;
+	top: 30px;
+	width: 60px;
+	height: 60px;
+	margin-left: -30px;
+	margin-top: -30px;
+}
+</style>
+
+
+  <!--========================================================================= -->
+
+</head>
+
+<body style="background:#fff;margin:0px;padding:0px;overflow:hidden;">
+
+	<!--========================================================================= 
+		the menu
+	<!--========================================================================= -->
+
+		<div id="banner" style="position:absolute;left:0px;top:0px;width:640px;height:25px;">
+
+			<div id="toolbar" style="visibility:hidden;margin-top:0px;">
+				<form>
+				<span id="tools" style="position:relative;margin-left:0px;top:0px;" >
+					<input type="radio" id="zoom"   name="tools" onclick="javascript:ixmaps.mapTool('zoomrect')" />
+						<label for="zoom" title="zoom with rect" >Zoom</label>
+					<input type="radio" id="pan"    name="tools" onclick="javascript:ixmaps.mapTool('pan')"  checked="checked" />
+						<label for="pan" title="pan with basemap" >Pan</label>
+					<input type="radio" id="info"   name="tools" onclick="javascript:ixmaps.mapTool('info')" />
+						<label for="info" title="show info of map items">Info&nbsp;</label>
+					<input type="radio" id="select" name="tools" onclick="javascript:ixmaps.mapTool('selectrect')" />
+						<label for="select" title="select map items with rect">Select</label>
+					<span id="legendcontrol">
+						<input id="legendvisible" type="checkbox" checked="checked" onclick="javascript:ixmaps.toggleThemeLegends();">
+							<label for="legendvisible" title="switch theme legend display">Legend</label>
+						</input>
+					</span>
+				</span>
+
+				<span id="options" style="position:relative;margin-left:5px;">
+					<button type="button" id="popuptools" style="height:24px;top:0px" title="open dialog to style, query and create charts">
+						<label for="popuptools" >&nbsp;</label></button>
+				</span>
+				<span id="reset" style="position:relative;margin-left:5px;">
+					<button type="button" id="resetbutton" style="height:24px;top:0px" title="reset map">
+						<label for="resetbutton" >&nbsp;</label></button>
+				</span>
+
+				<span id="visiswitch" style="position:relative;margin-left:5px;top:0px;">
+					<input id="htmlvisible" type="checkbox" checked="checked" onclick="javascript:ixmaps.HTML_toggleMap();"/>
+						<label for="htmlvisible"title="switch basemap">map</label>
+					<input id="splitter" type="checkbox" onclick="javascript:ixmaps.toggleSplitter();"/>
+						<label for="splitter"title="split screen map/overlay">split</label>
+					<input id="svgvisible" type="checkbox" checked="checked" onclick="javascript:ixmaps.HTML_toggleSVG();"/>
+						<label for="svgvisible"title="switch map overlays">overlay</label>
+				</span>
+
+				<span id="chartsdiv" style="float:right;margin-top:1px;margin-right:0px;" >
+					<span id="charts" style="margin-right:5px;">
+						<button type="button" id="chartsA" 
+						style="height:23px;background-image:url(../images/objects_minus_transparent.png);background-size:22px 22px;background-repeat:no-repeat;background-position:50% 0px;" 
+						title="smaller charts">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+
+						<button type="button" id="chartsB" 
+						style="height:23px;" title="toggle theme value display"><label for="chartsB" style="font-family:times;font-weight:bold;font-size:1em;color:#444;">&nbsp;T<span style="color:#76B840;font-weight:bold;">&nbsp;&#177;</span></label></button>
+
+						<button type="button" id="chartsC" 
+						style="height:23px;background-image:url(../images/objects_plus_transparent.png);background-size:24px 21px;background-repeat:no-repeat;" 
+						title="bigger charts" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+					</span>
+				</span>
+
+				</form>
+
+			</div>
+
+
+		</div>
+
+	<!--========================================================================= 
+		story board / sidebar
+	<!--========================================================================= -->
+
+		<div id="sidebar" style="position:absolute;top:5px;padding:0;margin:0;padding-right:5px;width:0px;height:0px;visibility:hidden;background:#ffffff;" >
+			<div id="story-board" style="display:block;overflow:auto;padding-left:5px;">
+				<h2 style="background:#fafafa;color:white;margin-top:20px;"> story board ... </h2>
+			</div>
+			<!-- legend --> 
+		</div>
+
+	<!--========================================================================= 
+		the map space
+	<!--========================================================================= -->
+
+		<div id="ixmap" style="position:relative;top:23px;left:0px;overflow:hidden;font-size:11px;">
+
+			<div id="onmapbuttondiv" style="position:absolute;top:10px;left:10px;visibility:hidden;opacity:0.95" >
+
+				<button type="button" id="opensidebarbutton" title="open sidebar" style="height:40px;width:40px;" >
+					<label for="opensidebarbutton" style="height:36px;" >
+						<img id="opensidebarbuttonicon" src="./resources/icons/list-grey.png" style="height:24px;margin-left:-8px;margin-right:-4px;opacity:0.8" /></label></button>
+
+				<button type="button" id="switchmodebutton" title="switch input mode" style="height:40px;width:40px;visibility:hidden;" >
+					<label for="switchmodebutton" style="height:36px;" >
+						<img id="switchmodebuttonicon" src="./resources/icons/mano.png" style="height:24px;margin-left:-5px;margin-right:-4px;" /></label></button>
+
+				<button type="button" id="switchtoolsbutton" title="switch input mode" style="height:40px;width:40px;visibility:hidden;" >
+					<label for="switchtoolsbutton" style="height:36px;" >
+						<img id="switchmodebuttonicon" src="./resources/icons/gear_empty.png" style="height:24px;margin-left:-5px;margin-right:-4px;" /></label></button>
+
+				<button type="button" id="switchinfobutton" title="switch info mode" style="height:40px;width:40px;display:none;" >
+					<label for="switchinfobutton" style="height:36px;" >
+						<img id="switchinfobuttonicon" src="./resources/icons/info_window.png" style="height:24px;margin-left:-5px;margin-right:-4px;" /></label></button>
+				<span id="embedlogo" style="vertical-align:-2px;margin-left:5px;visibility:hidden;">
+					<img id="logo" src="../images/ixmaps_logo_grey_transparent.png" height="20px">
+				</span>
+
+			</div>
+
+			<div id="onmapbuttondivbottom" style="position:absolute;bottom:30px;right:10px;opacity:0.95;z-index:999" >
+
+				<button type="button" id="switchlegendbutton" title="switch legend display" style="height:40px;width:40px;display:inline;" >
+					<label for="switchlegendbutton" style="height:36px;" >
+						<img id="switchlegendbuttonicon" src="./resources/icons/list-grey.png" style="height:26px;margin-left:-7px;margin-right:-4px;" /></label></button>
+
+			</div>
+
+		</div>
+
+	<!--========================================================================= 
+		loading, messages, help etc
+	<!--========================================================================= -->
+
+		<div id="divlogo" style="pointer-events:none;z-index:99;visibility:hidden;">
+			<div id="logo-image" style="position:absolute;bottom:10px;right:0px;padding:2px;padding-left:5px;padding-right:5px;background: rgba(255, 255, 255, 0.3);"><span style="font-family:helvetica,arial,sans;color:#444;font-size:0.7em;vertical-align:3px;padding:0px;margin:0px;">application:</span> 
+				<img alt="logo" style="height:12px;" src="../images/ixmaps_logo_transparent.png" />
+			</div>
+		</div>
+		<div id="divloading" style="pointer-events:none;z-index:9999">
+			<div id="loading-text-div" style="position:absolute;top:47%;width:100%;background-color: #ffffff;opacity:1;z-index:99">
+				<div id="loading-text" style="font-family:arial;font-size:48px;opacity:1;
+								color: #dddddd;
+								-webkit-background-color: #bbbbbb;
+								-webkit-background-clip: text;
+								-webkit-color: transparent;
+								-webkit-text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
+								text-align:center;
+								">
+				</div>
+			</div>
+			<div id="loading-image" style="position:absolute;top:50%;left:50%;z-index:99">
+				<p id="loading" style=" margin-top:1em;
+								">
+								<img style="margin-left:-70px;margin-bottom:-12px;" alt="mill" src="../images/loading.gif" />
+				</p>
+			</div>
+			<div id="logo" style="position:absolute;bottom:5px;right:5px;">
+				<img src="../images/ixmaps_logo_grey_transparent.png" height="12px"/><span style="color:#bbbbbb;font-family:verdana;font-style:italic;font-size:10px;vertical-align:3px;"> loading ...<span> 
+			</div>
+
+		</div>
+
+		<div id="attribution-div" style="position:absolute;bottom:-6px;left:10px;z-index:999">
+			<span id="attribution" style="color:#444444;font-family:verdana;font-size:11px;vertical-align:4px;background:#eeeeee"> <span> 
+		</div>
+
+		<div id="divstart" style="	visibility:hidden;
+								position:absolute;
+								top:0px;
+								left:0px;
+								width:100%;
+								height:100%;
+								z-index:1000;"  >
+			<div id="start-text-div" style="position:absolute;top:45%;left:40%">
+				<a id="start-text" href="javascript:__startMap()" 
+							style="font-family:serif;
+								font-size:48px;
+								color:#666666;
+								background-color:#dddddd;
+								padding: 0px 12px 3px 8px;
+								-moz-border-radius: 15px;
+								border-radius: 15px;
+								text-align:center">start</a>
+				</p>
+			</div>
+		</div>
+		<div id="velo" style="	visibility:hidden;
+								background-color:#444444;
+								opacity:0.2;
+								position:absolute;
+								top:0px;
+								left:0px;
+								width:100%;
+								height:100%;
+								z-index:1000;" width="100%" height="100%"  >
+		</div>
+		<div id="help" style="visibility:hidden"  >
+		</div>
+		<div id="dialog" style="visibility:hidden"  >
+		</div>
+		<div id="legend" style="visibility:hidden"  >
+		</div>
+		<div id="sidebar" style="visibility:hidden"  >
+		</div>
+		<div id="projects" style="visibility:hidden;"  >
+		</div>
+
+	<!--========================================================================= -->
+	</body>
+
+  <!--========================================================================= -->
+
+  <script src = "../../ui/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src = "../../ui/libs/jquery/ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+
+  <script src="../libs/beforeafter/js/jquery.beforeafter-canib.js"></script>
+  <script src="../libs/getUrlParam/js/jquery.getUrlParam.js"></script>
+  <script src="../libs/modernizr/js/testsvg.js"></script>
+  <script src="../libs/csv/jquery.csv.js"></script>
+
+  <script type="text/javascript" src="../js/htmlgui.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_query.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_sync.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_sync_Mapstraction.js" > </script>
+  <script type="text/javascript" charset="utf-8" src="../libs/mxn-2.0.14/mxn.js?(googlev3, microsoft, leaflet)"></script> 
+
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+  <script type="text/javascript" src="../js/htmlgui_story.js" > </script>
+
+<!--========================================================================= -->
+
+<!--
+<script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6"></script> 
+<script src="http://openlayers.org/api/OpenLayers.js"></script> 
+-->
+
+<link rel="stylesheet" href="../../ui/libs/leaflet-0.7.7/leaflet.css" />
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+<![endif]-->
+
+<!--
+<script src="http://cdn.leafletjs.com/leaflet-0.6/leaflet.js"></script>
+-->
+<script src="../../ui/libs/leaflet-0.7.7/leaflet.js"></script>
+
+<!--========================================================================= -->
+
+<script type="text/javascript">
+
+(function( ixmaps, $, undefined ) {
+
+	var szControls = "small";
+	var szSvgLegendFlag = "nolegend";
+	var szHTMLLegendFlag = "1";
+	var fLegendVisible = true;
+
+	$(document).ready(function() {
+
+		// check browser SVG capability
+
+		if (!Modernizr.svg){
+			alert("sorry ! your browser has no native SVG support;\n\nPlease try:   Chrome, Firefox, Safari, Opera or IE9" );
+		}
+		
+		// check opener
+
+		if ( window.opener ){
+			ixmaps.parentApi = window.opener.ixmaps;
+			ixmaps.szName = window.opener.name;
+		}else
+		if ( parent ){
+			ixmaps.parentApi = parent.window.ixmaps;
+			ixmaps.szName = parent.window.name;
+		}
+		else{
+			alert("error: missing parent window for parameter !");
+		}
+
+		// configure minimalistic interface for embedded map
+		// 
+		if ( ($(document).getUrlParam('pure')			)  ||
+			 ($(document).getUrlParam('minimal')		)  ||
+			 ($(document).getUrlParam('toolbar') == '0' )  ){
+			$( "#toolbar" ).remove();
+			$( "#ixmap" ).css('top','0px');
+			szControls = "mobile";
+			// define user on map ready
+			ixmaps.onMapReady = function(){
+				ixmaps.embeddedSVG.window.map.Themes.autoHideInfoTools = "all";
+				// adjust on map buttons
+				$( "#onmapbuttondiv").css('left',String(parseInt($(ixmaps.gmapDiv).css('left'))+10)+"px");
+			};
+
+			var mapTop = parseInt($("#ixmap").css('top'));
+			$( "#onmapbuttondiv").css('top',String(mapTop+9)+'px');
+			$( "#onmapbuttondiv").css('visibility','visible');
+			$( "#onmapbuttondiv").css('z-index','9999');
+			$( "#switchmodebutton").css('visibility','visible');
+			$( "#switchmodebutton" ).button().click(function(e){
+								__switchInputMode();
+								});
+			$( "#switchinfobutton" ).button().click(function(e){
+								__switchInfoMode();
+								});
+			$( "#switchlegendbutton" ).button().click(function(e){
+								__switchLegendMode();
+								});
+			if ($(document).getUrlParam('toolbutton') ||
+				$(document).getUrlParam('tools')){
+				$( "#switchtoolsbutton").css('visibility','visible');
+				$( "#switchtoolsbutton" ).button().click(function(e){
+									if ( 0 ){
+										ixmaps.openDialog(e,'dialog','./popuptools_jquery.html','','auto',350,800);
+									}else{
+										if ( $(document).getUrlParam('bigtools') ){
+											ixmaps.openDialog(e,'dialog','./popuptools_jquery.html','','auto',380,350);
+										}else{
+											var szPos = String(parseInt($(ixmaps.gmapDiv).css('left'))+10)+',52';
+											ixmaps.openDialog(e,'dialog','./popuptools_line_v2.html','',szPos,700,100);
+											$( "#dialog" ).css("height","100%");
+											$( "#dialog" ).css("width","90%");
+											$( "#dialog" ).css("position","absolute");
+											$( "#dialog" ).css("top","10px");
+										}
+										}
+									});
+			}else{
+				$( "#switchtoolsbutton" ).remove();
+			}
+		}else{
+			// position anyway, needed see below: story
+			$( "#onmapbuttondiv").css('top',String(mapTop+9)+'px');
+		}
+
+		if ( !$(document).getUrlParam('legend') ){
+			try{
+				$("#legendvisible")[0].checked=false; 
+			}catch (e){}
+			ixmaps.onMapReady = function(){
+				ixmaps.toggleThemeLegends(false);
+			};
+		}else
+		if (!$(document).getUrlParam('legendcontrol')){
+			$( "#legendcontrol" ).remove();
+		}
+
+		// register the embedded map,
+		// in case the parent page holds more than one embedded map,
+		// we can sync them if parameter name is given
+
+		if ($(document).getUrlParam('name')){
+			ixmaps.szName = $(document).getUrlParam('name');
+		}
+		ixmaps.szPath = $(location).attr('pathname');
+		if ( ixmaps.parentApi ){
+			try{
+				ixmaps.parentApi.registerApi(ixmaps,ixmaps.szName||"map",window);
+			}catch (e){}
+		}
+
+		// check predefined map height against window height
+
+		var maxHeight = window.innerHeight;
+		var maxWidth = window.innerWidth;
+		maxHeight -= parseInt($("#ixmap").css('top'));
+
+		$("#ixmap").css('height',maxHeight +'px');
+		$("#ixmap").css('width',maxWidth +'px');
+		$("#banner").css('width',maxWidth +'px');
+
+		if ( $(document).getUrlParam('controls') == "hidden" ){
+			$( "#tools" ).remove();
+			$( "#chartsdiv" ).remove();
+			$( "#banner").css("height","0px");
+			$( "#ixmap").css("top","0px");
+		}
+
+		// GR 02.11.2013 set background color
+		// ----------------------------------
+		var szMapType = decodeURIComponent($(document).getUrlParam('maptype'));
+		if ( szMapType.match(/dark/i) || szMapType.match(/black/i) ){
+			$("#ixmap").css({"background":"#222222"});
+			setTimeout('$("#gmap").css({"background":"#222222"})',1000);
+		}else if ( szMapType.match(/gray/i) ){
+			$("#ixmap").css({"background":"#E6E6E6"});
+			setTimeout('$("#gmap").css({"background":"#E6E6E6"})',1000);
+		}else{
+			$("#ixmap").css({"background":"white"});
+			setTimeout('$("#gmap").css({"background":"white"})',1000);
+		}
+
+		// GR 13.03.2014 svg map legend 0/1
+		// ----------------------------------
+		if ( $(document).getUrlParam('svgmaplegend') ){
+			szSvgLegendFlag = "legend";
+			}
+		// GR 06.01.2015 html legend 0/1
+		// ----------------------------------
+		if ( $(document).getUrlParam('themelegend') ){
+			szHTMLLegendFlag = $(document).getUrlParam('themelegend');
+			fLegendVisible = (szHTMLLegendFlag!="0");
+			}
+		// create the map app
+		// -------------------
+		if ($(document).getUrlParam('autoplay')!="false"){
+		map = new ixmaps.map("ixmap",{	mapService:decodeURIComponent($(document).getUrlParam('mapservice')),
+										maptype:decodeURIComponent($(document).getUrlParam('maptype')),
+										svg:decodeURIComponent($(document).getUrlParam('svggis')),
+										mapsize:"fullscreen",
+										mode:szSvgLegendFlag,
+										controls:szControls});	
+		}else{
+			$( "#divstart" ).css("visibility","visible");
+			$( "#divloading" ).css("visibility","hidden");
+		}
+
+		// activate the ui
+		// -------------------
+
+		$( "#zoom" ).button({ icons:{secondary:'ui-icon-zoomin'}});
+		$( "#pan" ).button({ icons:{secondary:'ui-icon-arrow-4'}});
+		$( "#info" ).button({ icons:{secondary:'ui-icon-info'}});
+		$( "#select" ).button({ icons:{secondary:'ui-icon-extlink'}});
+		$( "#tools" ).buttonset();
+
+
+		$( "#moremaps" ).button({ icons:{secondary:'ui-icon-triangle-1-s'}}).click(function(e){
+							ixmaps.openMegaBox(e,'dialog','./maps.html','Select map','auto',850,700,0.8);
+							});
+		$( "#chartsA" ).button().click(function(e){
+							ixmaps.changeObjectScaling(0.75);
+							});
+		$( "#chartsB" ).button().click(function(e){
+							ixmaps.toggleThemeValues();
+							});
+		$( "#chartsC" ).button().click(function(e){
+							ixmaps.changeObjectScaling(1/0.75);
+							});
+		$( "#charts" ).buttonset();
+
+		$( "#toolbar" ).css("visibility","visible");
+
+		if ( $(document).getUrlParam('options') ||
+			 $(document).getUrlParam('tools') ){
+			$( "#popuptools" ).button({ icons:{primary:'ui-icon-gear'}}).click(function(e){
+								if ( 1 ){
+									ixmaps.openDialog(e,'dialog','./popuptools_jquery.html','','auto',380,350);
+								}else{
+									ixmaps.openDialog(e,'dialog','./popuptools_line.html','','0,25',650,100);
+									$( "#dialog" ).css("height","100%");
+									$( "#dialog" ).css("width","90%");
+									$( "#dialog" ).css("position","absolute");
+									$( "#dialog" ).css("top","10px");
+									}
+								});
+		}else{
+			$( "#popuptools" ).remove();
+		}
+
+		if ( $(document).getUrlParam('reset') ){
+			$( "#resetbutton" ).button({ icons:{primary:'ui-icon-arrowrefresh-1-w'}}).click(function(e){
+								ixmaps.clearAll();
+								});
+		}else{
+			$( "#resetbutton" ).remove();
+		}
+		// GR 14.11.2014 suspended because of problems with the html theme legend 
+		if ( 0 && $(document).getUrlParam('story') && ($(document).getUrlParam('story') != "null") ){
+
+			var szStoryUrl	= $(document).getUrlParam('story');
+			ixmaps.storyUrl = szStoryUrl;
+			var sidebarHeight= parseInt($("#ixmap").css('height'));
+			var sidebarWidth = Math.min(Math.max(window.innerWidth/3,200),350);
+			$("#story-board").html("<iframe id='embed-story' src=\"" + szStoryUrl + "\" " +
+						" style='border:0;margin:0px;width:"+sidebarWidth+"px;height:"+sidebarHeight+"px' />");
+
+			//ixmaps.loadStory($(document).getUrlParam('story'));
+			var mapTop = parseInt($("#ixmap").css('top'));
+//			$( "#onmapbuttondiv").css('top',String(mapTop+9)+'px');
+			$( "#onmapbuttondiv").css('visibility','visible');
+			$( "#onmapbuttondiv").css('z-index','9999');
+			$( "#opensidebarbutton" ).button().click(function(e){
+								__switchMapStory();
+								});
+		}else{
+			$( "#opensidebarbutton" ).remove();
+		}
+		if ( $(document).getUrlParam('overlaycontrol') ){
+			$( "#htmlvisible" )	.button();
+			$( "#svgvisible" )	.button();
+			$( "#splitter")		.button();
+			$( "#visiswitch" )	.buttonset();
+		}else
+		if ( $(document).getUrlParam('mapcontrol') ){
+			$( "#svgvisible" ).next().remove();
+			$( "#svgvisible" )	.remove();
+			$( "#splitter").next().remove();
+			$( "#splitter")		.remove();
+			$( "#htmlvisible" )	.button();
+		}else{
+			$( "#visiswitch" ).remove();
+		}
+		if ( $(document).getUrlParam('tilemap') == "hidden" ){
+			ixmaps.htmlMap = false;
+			try{
+				$("#htmlvisible")[0].checked=false; 
+			}catch (e){}
+			$("#visiswitch").buttonset('refresh');
+		}
+		if ( $(document).getUrlParam('logo') ){
+			$( "#embedlogo" ).css("visibility","visible");
+		}
+
+		// layout ready 
+		$( "#divlogo" ).css("visibility","visible");
+		var attribution = decodeURIComponent(unescape($(document).getUrlParam('attribution'))); 
+		$( "#attribution" ).html( (attribution && (attribution != "null"))?attribution:"" );
+
+		// change input mode ?
+		if ( $(document).getUrlParam('mode') ){
+			var mode = $(document).getUrlParam('mode');
+			ixmaps.execBookmark("map.Api.setMapTool('"+mode+"')",false);
+			__setInputMode(mode);
+		}
+		// is there a bookmark to execute at load ?
+		if ( $(document).getUrlParam('bookmark') ){
+			szBookmark = decodeURIComponent($(document).getUrlParam('bookmark'));
+			ixmaps.execBookmark(szBookmark,false);
+		}
+
+		// show/hide toolsbar elements
+
+		__switchBannerElements();
+		setTimeout("__switchBannerElements()",5000);
+	
+		// --------------------------------------------------------
+		// android chrome event error work around  
+		// --------------------------------------------------------
+		// GR 27.03.2014 chrome for android doesn't get events through overlay SVG even if there pointer-events == none 
+		// we create a transparent pane on top to enable zoom and pan of the HTML basemap
+		aDiv = document.createElement("div");
+		aDiv.setAttribute("id","androideventpane");
+		aDiv.setAttribute("class","androideventpane");
+		aDiv.setAttribute("style","width:100%;height:100%;z-index:100");
+		var mapDiv = $('#gmap')[0];
+		mapDiv.appendChild(aDiv);
+
+		// end - android chrome event error work around  
+		// --------------------------------------------------------
+	});
+
+	ixmaps.makeHTMLLegend = function(){
+		try {
+			ixmaps.makeLegendHTML(ixmaps.actualThemeId);
+		}
+		catch (e){
+			ixmaps.openDialog(null,'legend-dialog','./theme_legend.html','Theme Legend','0,0',1,1);
+			$("#legend-dialog").dialog({
+				close: function( event, ui ) {
+					fLegendVisible = fOnRemove;
+				}
+			});
+		}
+	};
+
+	ixmaps.removeLegendHTML = function(){
+		fOnRemove = fLegendVisible;
+		$("#legend-dialog").dialog("close");
+		fOnRemove = false;
+	};
+
+	ixmaps.htmlgui_onDrawTheme = function(szId){
+		ixmaps.actualThemeId = szId;
+		if ( fLegendVisible ){
+			ixmaps.makeHTMLLegend();
+		}
+		ixmaps.parentApi.htmlgui_onDrawTheme(szId);
+		ixmaps.parentApi.parentApi.setTitle(String(ixmaps.themeObj.szSnippet||ixmaps.themeObj.szTitle));
+	};
+
+	ixmaps.htmlgui_onRemoveTheme = function(szId){
+		ixmaps.actualThemeId = null;
+		ixmaps.removeLegendHTML();
+		return ixmaps.parentApi.htmlgui_onRemoveTheme(szId);
+	};
+
+	__switchLegendMode = function(){
+		fLegendVisible = true;
+		ixmaps.makeHTMLLegend();
+	};
+
+	$(window).resize(function(e) {
+
+		$("#banner").css('width',window.innerWidth +'px');
+		__switchBannerElements();
+		if ( e.target.nodeName != 'DIV' ){
+			var height = $("#legend").parent().height();
+			var width = $("#legend").parent().width();
+			$("#legend").parent().css("left",(window.innerWidth-width-20)+"px");
+			$("#legend").parent().css("top",(window.innerHeight-height-40)+"px");
+		}
+	});
+
+	__switchBannerElements = function(){
+		var toolsWidth  = parseInt($("#tools").css('width'));
+		var visiToolWidth	= parseInt($("#visiswitch").css('width'));
+		var chartToolWidth = parseInt($("#chartsdiv").css('width'));
+
+		if ( window.innerWidth > (toolsWidth+visiToolWidth+chartToolWidth+10) ){
+			$("#visiswitch").css('visibility','visible');
+			$("#chartsdiv").css('visibility','visible');
+		}else
+		if ( window.innerWidth > (toolsWidth+chartToolWidth+30) ){
+			$("#visiswitch").css('visibility','hidden');
+			$("#chartsdiv").css('visibility','visible');
+		}else{
+			$("#visiswitch").css('visibility','hidden');
+			$("#chartsdiv").css('visibility','hidden');
+		}
+		$("#onmapbuttondiv").css('left',String(parseInt($(ixmaps.gmapDiv).css('left'))+10)+"px");
+	};
+
+	__switchMapStory = function(){
+
+		if ( $("#sidebar") ){
+			var sidebarWidth  = parseInt($("#sidebar").css('width'));
+			var mapHeight     = parseInt($("#ixmap").css('height'));
+			var mapWidth	  = window.innerWidth;
+
+			if ( sidebarWidth === 0 ){
+				sidebarWidth = Math.min(Math.max(window.innerWidth/3,200),350);
+				mapWidth = window.innerWidth-sidebarWidth;
+				$("#opensidebarbuttonicon").attr("src","./resources/icons/close-grey.png");
+				//$("#ixmap").css('left','205px');
+				$("#ixmap").animate({left:(sidebarWidth+5)+'px'},250);
+				$("#ixmap").css('border-left','#ddd solid 1px');
+				$("#sidebar").css('width',String(sidebarWidth)+'px');
+				$("#sidebar").css('height',String(mapHeight-5)+'px');
+				$("#sidebar").css('visibility','visible');
+				// $("#sidebar").css('z-index','9999');
+				$("#story-board").css('width','100%');
+				$("#story-board").css('height','100%');
+
+			}else{
+				//$("#ixmap").css('left','0px');
+				$("#ixmap").css('border-left','0');
+				$("#ixmap").animate({left:(0)+'px'},250);
+				$("#sidebar").css('width','0px');
+				$("#sidebar").css('height','0px');
+				$("#opensidebarbuttonicon").attr("src","./resources/icons/list-grey.png");
+			}
+		ixmaps.onWindowResize({x:0,y:0,width:mapWidth,height:mapHeight},false);
+		}
+	};
+	__switchInputMode = function(){
+		switch(ixmaps.getMapTool()){
+			case 'info':
+				ixmaps.mapTool('pan');
+				ixmaps.switchAndroidEventPane(true);
+				$("#switchmodebuttonicon").attr("src","./resources/icons/mano.png");
+				$("#switchinfobutton").hide();
+				break;
+			case 'pan':
+			default:
+				ixmaps.mapTool('info');
+				ixmaps.switchAndroidEventPane(false);
+				$("#switchmodebuttonicon").attr("src","./resources/icons/info.png");
+				break;
+			}
+	};
+	__setInputMode = function(szMode){
+		try{
+		switch(szMode){
+			case 'info':
+				$("#switchmodebuttonicon").attr("src","./resources/icons/info.png");
+				break;
+			case 'pan':
+			default:
+				$("#switchmodebuttonicon").attr("src","./resources/icons/mano.png");
+				break;
+			}
+		}
+		catch (e){}
+		try{
+			$("#"+mode)[0].checked=true; 
+			$("#tools").buttonset('refresh');
+		}
+		catch (e){}
+	};
+	__switchInfoMode = function(){
+		$("#switchinfobutton").hide();
+		ixmaps.mapTool('pan');
+		ixmaps.mapTool('info');
+	};
+
+	// start function in case: autoplay == false
+	//
+	__startMap = function(){
+		$( "#divstart" ).css("visibility","hidden");
+		map = new ixmaps.map("ixmap",{	mapService:decodeURIComponent($(document).getUrlParam('mapservice')),
+										maptype:decodeURIComponent($(document).getUrlParam('maptype')),
+										svg:decodeURIComponent($(document).getUrlParam('svggis')),
+										mapsize:"fix",
+										mode:szSvgLegendFlag,
+										controls:szControls});
+											
+		// is there a bookmark to execute at load ?
+		ixmaps.onMapReady = function(){
+			if ( $(document).getUrlParam('bookmark') ){
+				szBookmark = decodeURIComponent($(document).getUrlParam('bookmark'));
+				ixmaps.execBookmark(szBookmark,false);
+			}
+			ixmaps.toggleThemeLegends(false);
+		};
+	};
+
+	ixmaps.syncSlaveMap = function(ptSW,ptNE,nZoom){
+		ixmaps.parentApi.syncEmbed(ixmaps,ptSW,ptNE,nZoom);
+	};
+
+	ixmaps.syncEmbedMap = function(ptSW,ptNE,nZoom){
+		ixmaps.htmlgui_setCenterAndZoom({lat:(ptSW.lat+ptNE.lat)/2,lng:(ptSW.lng+ptNE.lng)/2},nZoom);
+		htmlgui_synchronizeSVG(false);
+	};
+
+	ixmaps.setMapTool = function(szId){
+		$( "#"+szId ).click();
+	};
+
+	ixmaps.setColorScheme = function(index){
+		ixmaps.changeThemeStyle(null,"colorscheme:"+index,"set");
+		$( "#colorList" ).dialog("close");
+	};
+
+	ixmaps.switchAndroidEventPane = function(fFlag){
+		//if ( fFlag && this.isTouchDevice() ){
+		if ( fFlag ){
+			$(".androideventpane").show();
+		}else{
+			$(".androideventpane").hide();
+		}
+	};
+
+	// ----------------------
+	// make chart type menu 
+	// ----------------------
+
+	var szChartMenuId = null;
+	var fChartMenuDialog = false;
+	var fChartMenuVisible = true;
+
+	ixmaps.makeChartMenueHTML = function(szId){
+
+		// make <div> + <svg> to receive the chart menu (in svg)
+		var szHtml = "";
+		szHtml += "<div style='font-size:0.6em;margin-bottom:0.5em'>select chart type:</div>";
+		szHtml += "<div id='menuDiv' style='height:300px;width:260px;overflow:auto'><div><svg width='240' height='2000' viewBox='0 0 4800 40000'><g id='getchartmenutarget'></g></svg></div></div>";
+
+		// create dialog
+		__showChartDialog(szHtml,ixmaps.themeObj.szTitle);
+
+		// call theme method to draw the charts
+		var szTypelistA = ixmaps.themeObj.getChartTypeMenu($("#getchartmenutarget")[0],null,240);
+
+		// create click map to select the chart for the theme
+		szHtml = "<div style='position:relative;top:-2010px;'>";
+		for ( i in szTypelistA ){
+			if ( i%4 == 0 ){
+				szHtml += "<div style='clear:both'>";
+			}
+			szHtml += "<a href=\"javascript:ixmaps.changeThemeStyle(null,'type:"+szTypelistA[i]+"','set');\"><div style='float:left;height:60px;width:60px;'></div></a>";
+		}
+		szHtml += "</div>";
+
+		$("#menuDiv").append(szHtml);
+	};
+
+	__showChartDialog = function(szHtml,szTitle){
+
+		ixmaps.szChartHtml  = szHtml  || ixmaps.szChartHtml  || "";
+		ixmaps.szChartTitle = szTitle || ixmaps.szChartTitle || "";
+
+		if ( !fChartMenuVisible ){
+			return;
+		}
+	
+		// create dialog (oversized) to host the ChartMenu
+		//
+		if ( !fChartMenuDialog ){
+			ixmaps.openDialog(null,'chartmenue','',ixmaps.szChartTitle,'auto',800,500);
+			fChartMenuDialog = true;
+		}
+
+		// set content and resize
+		//
+		$("#chartmenue").html(ixmaps.szChartHtml);
+
+		$("#chartmenue").parent().css("width","300px");
+		$("#chartmenue").parent().css("height","300px");
+
+		$("#chartmenue").dialog({
+		  close: function( event, ui ) {
+				fChartMenuDialog = false;
+				$("#chartmenue").remove();
+			}
+		});
+	};
+
+
+
+
+
+}( window.ixmaps = window.ixmaps || {}, jQuery ));
+
+</script>
+
+</html>

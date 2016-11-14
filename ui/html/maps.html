@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+  <title>SVG GIS Sample Maps</title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="Guenter Richter">
+  <meta name="Keywords" content="map SVG XML Javascript">
+  <meta name="Description" content="Test page for SVGGIS map applications">
+  <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" >
+
+  <link href="./help/html.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript">
+
+		var ixmaps = null;
+
+		/* ------------------------------------------------------------------ * 
+			Init functions
+		 * ------------------------------------------------------------------ */
+
+		if ( parent ){
+			ixmaps = parent.window.ixmaps;
+		}else
+		if ( window.opener ){
+			ixmaps = window.opener.ixmaps;
+		}
+
+		function loadMap(szUrlMap,szUrlStory){
+			ixmaps.HTML_setSVGMap(szUrlMap);
+			ixmaps.loadStory(szUrlStory);
+		}
+
+
+</script>
+
+<style type="text/css">
+  a {
+	color:#3E5C94;
+	text-decoration:none;
+  }
+  a:hover {
+	color: blue;
+	text-decoration:underline;
+  }
+  h4 {
+	color: #bbb;
+	font-size:18px;
+  }
+</style>
+
+</head>
+
+<body style="padding:.5em 1em;">
+		<div id="projects" >
+			<h4>ISTAT</h4>
+			<ul>
+			<li>ISTAT 2001-2001 Communi:<a href="javascript:loadMap('../../maps/svg/projects/STAT 2001 Provincia AP/comuni.svgz','ISTAT 2001 Provincia AP')" >
+			Provincia di Ascoli Piceno e Fermo</a> - <a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 Italia/comuni.svgz','ISTAT 1991-2001 Italia')" >
+			tutto l'Italia</a>
+			</li>
+			<li>ISTAT 2001 Sistemi di Lavoro: <a href="javascript:loadMap('../../maps/svg/projects/xml-project_italy_istat_small_2_synch/italy_istat.svgz','ISTAT 2001 Italia')" >tutto l'Italia</a> - o per regione:
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/abruzzo_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Abruzzo</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/basilicata_istat.svgz'),'../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html'" >
+			Basilicata</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/calabria_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Calabria</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/campania_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Campania</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/emiliaromagna_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html');" >
+			Emilia-Romagna</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/friuliveneziagiulia_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Friuli-Venezia Giulia</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/lazio_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Lazio</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/liguria_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Liguria</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/lombardia_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Lombardia</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/marche_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Marche</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/molise_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Molise</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/piemonte_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Piemonte</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/puglia_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Puglia</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/sardegna_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Sardegna</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/sicilia_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Sicilia</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/toscana_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Toscana</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/trentinoaltoadige_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Trentino-Alto Adige</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/umbria_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Umbria</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/valledaosta_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Valle d'Aosta</a>&nbsp;
+			<a href="javascript:loadMap('../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/veneto_istat.svgz','../../maps/svg/projects/ISTAT 2001 SistemiLavoro Regioni/init/story.html')" >
+			Veneto</a>&nbsp;
+			</li>
+			</ul>
+			<h4>Statistica ed informazioni comunali</h4>
+			<ul>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Anagrafe Vie Sezioni Numeri Civici servici overlay/SBT_Panoramica_Anagrafe.svgz')" >
+			San Benedetto del Tronto</a>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Anagrafe Vie Sezioni Numeri Civici servici overlay - NC/SBT_Panoramica_Anagrafe.svgz')" >
+			San Bened.dT numeri civici</a>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Start/start.svgz')" >
+			Autobus Start</a>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/edifici epoca/edifici_epoca.svgz')" >
+			Edifici ed epoca</a>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Quest Mobilita Zona Nord - Symbol/Quest_Mobilita_Zona_Nord.svgz')" >
+			SBT Quest Mobilita</a>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/infas-kassel-all/infas_demo_2004.svgz')" >
+			infas GEOdaten Kassel</a>
+			</li>
+			</ul>
+			<h4>National Statistics</h4>
+			<ul>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Atlas of Rural and Small Town America/Atlas_of_Rural_and_Small_Town_America.svgz')" >
+			Atlas of Rural ... America</a>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Africa-map/Africa-map.svgz')" >
+			Africa language and ethnicity</a>
+			</li>
+			</ul>
+			<h4>World</h4>
+			<ul>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/usgs_WPA_2000/world_oil.svgz')" >
+			Word Oil geolog.Provinces</a>
+			</li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/unesco_megacities - mercator/world_megacities.svgz')" >
+			Word Mega Cities</a>
+			</li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/unesco/world_water.svgz')" >
+			Word Water</a>
+			</li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/unesco_nuclear/world_nuclear.svgz')" >
+			Word Nuclear Power Sites</a>
+			</li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/world_base_ISO2/world_ISO2.svgz?name=world')" >
+			Word ISO2 test</a>
+			</li>
+			</ul>
+			<h4>Planning and Surveing</h4>
+			<ul>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/xml-project_cupra_PRG/cupramarittima_PRG_2_CARTO_tiles_ext_crop.svgz')" >
+			P.R.G. Cupra Marittima</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Carta Tecnica Regionale/CTR_tematica.svgz')" >
+			Carta Tecnica Regionale</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/toscana/toscana.svgz')" >
+			Toscana</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/piemonte_aree_inondabili/piemonte_inondazioni_urban.svgz')" >
+			Inondazioni Piemonte</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Autorita Bacino Interregionale/franeesondazioni.svgz')" >
+			P.A.I Bacino del Tronto</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Autorita Bacino Interregionale - Basilicata/franeesondazioni.svgz')" >
+			P.A.I Basilicata</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Imported/firenze_scavi_archeologici_include.svgz')" >
+			Scavi Firenze</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/EEA_luz_ancona/eea_luz_ancona.svgz')" >
+			EEA_luz_ancona</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/EEA_UMZ2006_Changes00/eea_UMZ2006_Changes00.svgz')" >
+			EEA_UMZ2006_Changes00</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Corine_2000 Marche/corine_2000_marche.svgz')" >
+			Corine 2000 Marche</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/Idrografia Italia/idrografia_italia.svgz')" >
+			Bacini idrografici d'Italia</a></li>
+			<li><a href="javascript:loadMap('../../../maps/maps/svg/maps/settimo_torino/settimo_torino.svgz')" >
+			Settimo Torinese</a></li>
+			</ul>
+			<h4>BPlan germany</h4>
+			<ul>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/xml-project_bplan/la22.svgz')" >
+			la22</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/xml-project_bplan/bp2070.svgz')" >
+			bp2070</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/NAS-Test/NAS_Test_1.svgz')" >
+			NAS Test 1</a></li>
+			<li><a href="javascript:loadMap('../../maps/svg/projects/NAS-Test/NAS_Test_4.svgz')" >
+			NAS Test 4</a></li>
+			</ul>
+		</div>
+	<!--========================================================================= -->
+	</body>
+</html>

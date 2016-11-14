@@ -1,0 +1,284 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+  <title>iXmaps interative map</title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="Guenter Richter">
+  <meta name="Keywords" content="map SVG XML Javascript Google Maps">
+  <meta name="Description" content="template  page for SVGGIS interactive SVG map on Google Basemap">
+  <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" >
+
+  <meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1"/>
+
+  <link rel="shortcut icon" href="../images/ixmaps_logo1.png" >
+
+  <link href="../../ui/libs/jquery/ui/css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css"/>
+  <link href="../../ui/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+  <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+  <script src = "../../ui/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src = "../../ui/libs/jquery/ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+  <script src="../libs/beforeafter/js/jquery.beforeafter-canib.js"></script>
+  <script src="../libs/getUrlParam/js/jquery.getUrlParam.js"></script>
+
+  <script type="text/javascript" src="../js/htmlgui.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_query.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_sync.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_story.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_sync_Mapstraction.js" > </script>
+  <script type="text/javascript" charset="utf-8" src="../libs/mxn-2.0.14/mxn.js?(googlev3, yahoo, microsoft, openlayers, leaflet)"></script> 
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+		var szMapService = decodeURIComponent($(document).getUrlParam('mapservice'));
+		var szMapType	 = decodeURIComponent($(document).getUrlParam('maptype'));
+		var szSVGGIS	 = decodeURIComponent($(document).getUrlParam('svggis'));
+		var szBookmark	 = decodeURIComponent($(document).getUrlParam('bookmark'));
+		var szStory		 = decodeURIComponent($(document).getUrlParam('story'));
+
+		map = new ixmaps.map("ixmap",{	svg:szSVGGIS,
+										mapService:szMapService,
+										maptype:szMapType
+										});
+
+		$( "#popuptools" ).button({ icons:{primary:'ui-icon-gear'}}).click(function(e){
+							ixmaps.openSidebar(e,'sidebar','./popuptools_jquery.html','','auto',350,800);
+							});
+		$( "#gosearch" ).button({ icons:{primary:'ui-icon-search'}}).click(function(e){
+							ixmaps.searchMap();
+							});
+		$( "#zoom" ).button({ icons:{secondary:'ui-icon-zoomin'}});
+		$( "#pan" ).button({ icons:{secondary:'ui-icon-arrow-4'}});
+		$( "#info" ).button({ icons:{secondary:'ui-icon-info'}});
+		$( "#select" ).button({ icons:{secondary:'ui-icon-extlink'}});
+		$( "#tools" ).buttonset();
+		$( "#query" ).next().button({ icons:{secondary:'ui-icon-search'}}).parent().buttonset();
+		$( "#moremaps" ).button({ icons:{secondary:'ui-icon-triangle-1-s'}}).click(function(e){
+							ixmaps.openMegaBox(e,'dialog','./maps.html','Select a Map','auto',850,700);
+							});
+		$( "#gobookmark" )	.button({ icons:{primary:'ui-icon-arrowthick-1-e'}}).next()
+							.button({ icons:{primary:'ui-icon-plus'}}).parent().buttonset();
+		$( "#htmlvisible" )	.button();
+		$( "#svgvisible" )	.button();
+		$( "#valuesvisible").button();
+		$( "#visiswitch" )	.buttonset();
+
+		$( "#chartsA" ).button().click(function(e){
+							ixmaps.changeObjectScaling(0.75);
+							});
+		$( "#chartsB" ).button().click(function(e){
+							ixmaps.toggleThemeValues();
+							});
+		$( "#chartsC" ).button().click(function(e){
+							ixmaps.changeObjectScaling(1/0.75);
+							});
+		$( "#charts" ).buttonset();
+		$( "#toolbar" ).css("visibility","visible");
+
+		// is there a story to load ?
+		if ( szStory ){
+			szStory = decodeURIComponent(szStory);
+			ixmaps.loadStory($(document).getUrlParam('story'));	
+		}
+		// is there a bookmark to execute at load ?
+		if ( szBookmark ){
+			try {
+				szBookmark = decodeURIComponent(szBookmark);
+			}
+			catch (e){}
+			ixmaps.execBookmark(szBookmark,false);
+		}
+    });
+
+  </script>
+  <style type="text/css">
+  a {
+	color: #3641E2;
+	text-decoration:none;
+  }
+  a:hover {
+	color: blue;
+	text-decoration:underline;
+  }
+  input:focus	{ 
+    background-color:white;
+    outline-width: 0;
+  }
+  </style>
+</head>
+
+<body style="margin:0px">
+
+	<!--========================================================================= 
+		The Menu
+	<!--========================================================================= -->
+
+	<div id='banner'  style="background:#f9f9f9;height:36px;border-color:#d0d0d0;"  >
+
+		<div id='banner_inner'  style="position:relative;top:4px;margin-left:8px;margin-right:6px;"  >
+
+			<span id='banner_left' style="position:relative;top:0px;" >
+
+				<span id="toolbar" style="visibility:hidden;">
+
+					<span id="tools">
+						<input type="radio" id="zoom"   name="tools" onclick="javascript:ixmaps.mapTool('zoomrect')" />
+							<label for="zoom" title="zoom with rect">Zoom</label>
+						<input type="radio" id="pan"    name="tools" onclick="javascript:ixmaps.mapTool('pan')" />
+							<label for="pan" title="pan with basemap">Pan</label>
+						<input type="radio" id="info"   name="tools" onclick="javascript:ixmaps.mapTool('info')" checked="checked" />
+							<label for="info" title="show info of map items">Info&nbsp;</label>
+						<input type="radio" id="select" name="tools" onclick="javascript:ixmaps.mapTool('selectrect')" />
+							<label for="select" title="select map items with rect">Select</label>
+					</span>
+
+					<button type="button" id="popuptools" style="height:23px;top:1px" title="open dialog to style, query and create charts">
+						<label for="popuptools" >&nbsp;</label></button>
+
+					<!--  search form -->
+					<form id="MapSearchForm" style="display:inline-block;position:relative;top:1px;left:5px;height:21px;margin-right:10px;border:1px solid #ccc;background:#fff;" action="javascript:ixmaps.searchMap();" name="MapSearchForm">
+						<img src="../images/search2.png" style="position:relative;left:2px;top:1px;" height="14" onclick="javascript:ixmaps.searchMap();" />
+						<input class="ifield" id="query" type="text" size="16" style="height:20px;position:relative;top:0px;border:none;" title="query map items">		
+					</form>
+					<!-- end search form  -->
+
+				</span>
+
+				<!--  bookmark buttons 
+				<span id="bookmark" >
+					<button id="gobookmark" type="button" onclick="javascript:ixmaps.htmlgui_loadBookmark();">
+						<label title="goto bookmark">bookmark</label></button>
+					<button id="addbookmark" type="button" onclick="javascript:ixmaps.htmlgui_saveBookmark();" title="create new bookmark">
+						<label>&nbsp;</label></button>
+				</span>
+					 end bookmark  -->
+
+		<!--  share buttons -->
+		<span id="share" style="position:relative;top:3px;">
+			<!--  create popout map -->
+			<span style="position:relative;left:2px;top:1px;">
+				<input id="popout" type="image" src="../images/popout.png" height="14px" alt="popout map" title="popout map" 
+								onclick="javascript:ixmaps.popOutMap('window','../dispatch.htm?ui=popout');return false;" />
+			</span>
+
+			<!--  share map -->
+			<span style="position:relative;left:3px;top:2px;">
+				<input id="share" type="image" src="../images/link1.png" height="18px" alt="share map" title="share map" 
+						onclick="javascript:ixmaps.shareMap('dialog');return false;" />
+			</span>
+
+			<!--  mail map -->
+			<span style="position:relative;left:6px;">
+				<input id="share" type="image" src="../images/envelope_light.png" height="14px" alt="mail map" title="mail map" 
+						onclick="javascript:ixmaps.mailMap('dialog');return false;" />
+			</span>
+		</span>
+		<!-- end share  -->
+
+				<!--  toggle map display - map,overlay,split -->
+				<span id="visiswitch" style="position:relative;margin-left:15px;top:0px;">
+					<input id="htmlvisible" type="checkbox" checked="checked" onclick="javascript:ixmaps.HTML_toggleMap();"/>
+						<label for="htmlvisible" title="switch basemap">map</label>
+					<input id="splitter" type="checkbox" onclick="javascript:ixmaps.toggleSplitter();"/>
+						<label for="splitter" title="split screen map/overlay">split</label>
+					<input id="svgvisible" type="checkbox" checked="checked" onclick="javascript:ixmaps.HTML_toggleSVG();"/>
+						<label for="svgvisible" title="switch map overlays">overlay</label>
+				</span>
+			</span>
+
+			<!-- all after goes to the right -->
+			<span id="banner-right" style="float:right;margin-left:5px;">
+
+
+				<!--  change map opacity and chart size -->
+				<span style="position:relative;margin-left:5px;top:0px;">
+					<span id="charts" >
+						<button type="button" id="chartsA" style="height:23px;top:3px;" >
+							<img src="../images/objects_minus_transparent.png" height="16"  /></button>
+						<button type="button" id="chartsB" style="height:23px;top:0px;" >
+							<label for="chartsB">&#177;&nbsp;<span style="font-family:times;font-weight:bold;font-size:1.1em;color:#444;">T</span></label></button>
+						<button type="button" id="chartsC" style="height:23px;margin-right:-7px;top:3px;" >
+							<img src="../images/objects_plus_transparent.png" height="16"  /></button>
+					</span>
+				</span>
+
+				<!--  open dialog to select new maps 
+				<button type="button" id="moremaps" style="height:23px;top:-1px">
+					<label for="moremaps" title="select other maps">more maps&nbsp;&nbsp;</label></button>
+				-->
+
+				<!--  open dialog with help -->
+				<input type="image" src="../images/ixmaps_logo_transparent.png" alt="help" title="help" height="20" style="margin-left:5px;margin-bottom:-7px;"
+						onclick="javascript:ixmaps.openDialog('dialog','../../resources/html/help/help.html','?');return false;">
+			</span>
+
+	</div>
+	</div>
+
+
+	<!--========================================================================= 
+		The Map
+	<!--========================================================================= -->
+
+	<div style="position:absolute;left:0px;top:35px;"  >
+
+		<div id="ixmap" >
+		</div>
+
+	<!--========================================================================= 
+		Popups
+	<!--========================================================================= -->
+
+		<div id="divloading" style="pointer-events:none;z-index:99">
+			<div id="loading-text-div" style="position:absolute;top:42%;width:100%">
+				<p id="loading-text" style="font-family:serif;font-size:48px;color:#f0f0f0;text-align:center">
+				</p>
+			</div>
+			<div id="loading-image" style="position:absolute;top:42%;left:39%;">
+				<p id="loading" style=" margin-top:1em;
+										">
+										<img style="margin-bottom:-12px;" alt="mill" src="../images/loading.gif" />
+				</p>
+			</div>
+			<div id="logo" style="position:absolute;bottom:5px;right:5px;">
+				<img src="../images/ixmaps_logo_grey_transparent.png" height="12px"/><span style="color:#bbbbbb;font-family:verdana;font-style:italic;font-size:10px;vertical-align:3px;"> loading ...<span> 
+			</div>
+		</div>
+
+		<div id="velo" style="	visibility:hidden;
+								background-color:#444444;
+								opacity:0.2;
+								position:absolute;
+								top:0px;
+								left:0px;
+								width:100%;
+								height:100%;
+								z-index:1000;" width="100%" height="100%"  >
+		</div>
+		<div id="help" style="visibility:hidden"  >
+		</div>
+		<div id="dialog" style="position:absolute;top:0px;visibility:hidden"  >
+		</div>
+		<div id="sidebar" style="z-index:1000;position:absolute;top:0px;visibility:hidden"  >
+		</div>
+	<div id="projects" style="visibility:hidden;"  >
+		</div>
+	</div>
+
+	<!--========================================================================= -->
+	</body>
+
+	<script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6"></script> 
+	<script src="http://openlayers.org/api/OpenLayers.js"></script> 
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+	<!--[if lte IE 8]>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+	<![endif]-->
+
+	<script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+
+</html>

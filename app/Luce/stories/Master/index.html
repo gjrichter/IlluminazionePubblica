@@ -1,0 +1,855 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="en-us" http-equiv="Content-Language">
+
+	<title>Airbnb listings venice</title>
+	<meta name="author" content="Guenter Richter" />
+	<meta name="description" content="ixmaps iteractive map to explore airbnb listigs in venice,italy" />
+	<meta name="keywords"  content="ixmaps,airbnb,inside,listings,map,char,interactice,SVG" />
+	<meta name="Resource-type" content="Document" />
+
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- GOOGLE FONT -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    
+
+    <link href="assets/css/icomoon.css" rel="stylesheet" />    
+    <link href="assets/css/main.css" rel="stylesheet" />    
+
+	<link rel="stylesheet" type="text/css" href="assets/css/jquery.fullPage.css" />
+	<style type="text/css">
+
+
+	/* Overwriting fullPage.js tooltip color
+	* --------------------------------------- */
+	.fp-tooltip{
+		color: #AAA;
+	}
+	#fp-nav span, .fp-slidesNav span{
+		border-color: #AAA;
+	}
+	#fp-nav li .active span, .fp-slidesNav .active span{
+		background: #AAA;
+
+	.shareIcon{
+		font-size: 32px;
+	}
+
+	  ::-webkit-scrollbar {
+		  width:  1px;
+		  height: 100%;
+	  }
+
+	  ::-webkit-scrollbar-thumb {
+		  background: #444444;
+	  }
+
+	  ::-webkit-scrollbar-track {
+		  background: #888888;
+	  }
+	body {
+		scrollbar-3dlight-color:gold;
+		scrollbar-arrow-color:blue;
+		scrollbar-base-color:;
+		scrollbar-darkshadow-color:blue;
+		scrollbar-face-color:;
+		scrollbar-highlight-color:;
+		scrollbar-shadow-color:
+	}	
+
+	</style>
+	<!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+
+</head>
+
+<body style="width:100%;padding:0px 10px 0px 10px">
+
+<div id="fullpage" style="margin-top:50px;padding-right:1em;">
+
+	<div class="section active" id="section0" >
+		<div class="container" >
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p class="comment">
+					<span class="pull-left" style="margin-left:-18px"><h2>Illuminazione Pubblica</h2></span><span class="pull-right"><h4><em>dati:</em> Comune di Lecce</h4></span>
+					</p>
+					<div style="margin-left:-18px">
+						<img src="Pubblica-illuminazione-Lecce.jpg" width="100%">
+					</div>
+				</div>
+			</div><!-- row -->
+			<div class="row scrollclass" style="text-align:center;margin-top:1.7em;margin-bottom:3em">
+				<a href="javascript:$.fn.fullpage.moveSectionDown();"><span class="icon icon-arrow-down2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+			</div><!-- row -->
+		</div><!-- /container -->
+	</div>
+
+	<div class="section" id="section0-1">
+
+		<div class="row scrollclass" style="text-align:center;">
+			<a href="javascript:$.fn.fullpage.moveSectionUp();"><span class="icon icon-arrow-up2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+		</div><!-- row -->
+
+		<div id="greywrap">
+			<div class="container" id="IParte" >
+				<div class="row">
+					<div class="col-md-12">
+					<h2 class="centered">Indice</h1>
+					<br>
+					</div>
+				</div><!-- row -->
+			</div>
+		</div><!-- greywrap -->
+		<div class="container" >
+			<div class="row pad-top  min-height-cls" >
+				<div class="col-md-12">
+					<div class="centered">
+					<a class="button" href='javascript:__moveSectionsDown(1);'>&nbsp;tipo di illuminazione</a>&nbsp;<br>
+					<a class="button" href='javascript:__moveSectionsDown(2)'>&nbsp;densità e distribuzione</a>&nbsp;<br>
+					<a class="button" href='javascript:__moveSectionsDown(3)'>&nbsp;consumo</a>&nbsp;<br>
+					<a class="button" href='javascript:__moveSectionsDown(4)'>&nbsp;quadri</a>&nbsp;<br>
+					<a class="button" href='javascript:__moveSectionsDown(5)'>&nbsp;armature</a>&nbsp;<br>
+					<a class="button" href='javascript:__moveSectionsDown(6)'>&nbsp;pali</a>&nbsp;<br><br>
+					<a class="button" href='javascript:__moveSectionsDown(7)'>&nbsp;attribuzioni</a>&nbsp;<br>
+					</div>
+				</div>
+			</div><!-- row -->
+
+			<div class="row scrollclass" style="text-align:center;margin-top:1em;margin-bottom:-1em">
+				<a href="javascript:$.fn.fullpage.moveSectionDown();"><span class="icon icon-arrow-down2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+			</div><!-- row -->
+
+
+
+		</div><!-- container -->
+	</div>
+
+	<!--
+		1. tema:
+		Typo di illuminazione
+	-->
+
+
+	<div class="section" id="section1">
+
+		<div class="row scrollclass" style="text-align:center;">
+			<a href="javascript:$.fn.fullpage.moveSectionUp();"><span class="icon icon-arrow-up2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+		</div><!-- row -->
+
+		<div id="greywrap">
+			<div class="container" id="IParte" >
+				<div class="row">
+					<div class="col-md-12">
+					<h2 class="centered">tipo di illuminazione</h1>
+					<br>
+					</div>
+				</div><!-- row -->
+			</div>
+		</div><!-- greywrap -->
+		<div class="container" >
+			<div class="row pad-top  min-height-cls" >
+				<div class="col-md-12">
+					<p>
+
+					<a class="button" 
+					href='javascript:ixmaps.setMapType("dark");ixmaps.newTheme("Lecce_Luce",theme_luce_consumo_colore,"clear");'>
+					<span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;tipo di luce &nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a><br>
+
+					<a id="first-theme" class="button" href='javascript:ixmaps.setMapType("dark");ixmaps.newTheme("Lecce_Luce",theme_luce_consumo_colore_glow,"clear");'>
+					<span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;tipo di luce e consumo&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a><br>
+
+					<a class="button" href='javascript:ixmaps.setMapType("dark");ixmaps.newTheme("Lecce_Luce",theme_luce_unita_colore_glow_lampada,"clear");'>
+					<span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;tipo di lampada&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a><br>
+
+					<a class="button" href='javascript:ixmaps.setMapType("dark");ixmaps.newTheme("Lecce_Luce",theme_luce_consumo_colore_glow_lampada,"clear");'>
+					<span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;tipo di lampada e consumo&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a>
+
+					</p>								
+				</div>
+			</div><!-- row -->
+
+				<div class="row scrollclass" style="text-align:center;margin-top:1em;">
+				<a href="javascript:$.fn.fullpage.moveSectionDown();"><span class="icon icon-arrow-down2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+			</div><!-- row -->
+
+		</div><!-- container -->
+	</div>
+
+	<!--
+		2. tema:
+		densità e distribuzione
+	-->
+
+
+	<div class="section" id="section2">
+
+		<div class="row scrollclass" style="text-align:center;">
+			<a href="javascript:$.fn.fullpage.moveSectionUp();"><span class="icon icon-arrow-up2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+		</div><!-- row -->
+
+		<div id="greywrap">
+			<div class="container" id="IParte" >
+				<div class="row">
+					<div class="col-md-12">
+					<h2 class="centered">densità e distribuzione</h1>
+					<br>
+					</div>
+				</div><!-- row -->
+			</div>
+		</div><!-- greywrap -->
+		<div class="container" >
+			<div class="row pad-top  min-height-cls" >
+				<div class="col-md-12">
+
+					<a id="second-theme" class="button" href='javascript:ixmaps.setMapType("dark");ixmaps.newTheme("Lecce_Luce",theme_luce_consumo_colore_densita,"clear");'>
+					<span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;densità del consumo - per tipo di luce&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a><br>
+
+					<a class="button" href='javascript:ixmaps.setMapType("dark");ixmaps.newTheme("Lecce_Luce",theme_luce_consumo_colore_aggregate_I,"clear");'>
+					<span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;percentuali dei tipi di luce&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a>
+
+					</p>								
+				</div>
+			</div><!-- row -->
+
+				<div class="row scrollclass" style="text-align:center;margin-top:1em;">
+				<a href="javascript:$.fn.fullpage.moveSectionDown();"><span class="icon icon-arrow-down2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+			</div><!-- row -->
+
+		</div><!-- container -->
+
+	</div><!-- section -->
+
+	<!--
+		3. tema:
+		consumo
+	-->
+
+	<div class="section" id="section3">
+
+		<div class="row scrollclass" style="text-align:center;">
+			<a href="javascript:$.fn.fullpage.moveSectionUp();"><span class="icon icon-arrow-up2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+		</div><!-- row -->
+
+		<div id="greywrap">
+			<div class="container" id="IParte" >
+				<div class="row">
+					<div class="col-md-12">
+					<h2 class="centered">consumo</h1>
+					<br>
+					</div>
+				</div><!-- row -->
+			</div>
+		</div><!-- greywrap -->
+		<div class="container" >
+			<div class="row pad-top  min-height-cls" >
+				<div class="col-md-12">
+
+					<a id="third-theme" class="button" href='javascript:ixmaps.newTheme("Lecce_Luce",theme_luce_consumo_colore_aggregate_text,"clear");ixmaps.setMapType("white");'>
+					<span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;consumo aggregato per griglia dinamica&nbsp;
+					<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a>
+
+					</p>								
+				</div>
+			</div><!-- row -->
+
+				<div class="row scrollclass" style="text-align:center;margin-top:1em;">
+				<a href="javascript:$.fn.fullpage.moveSectionDown();"><span class="icon icon-arrow-down2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+			</div><!-- row -->
+
+		</div><!-- container -->
+
+	</div><!-- section -->
+
+	<!--
+		4. tema:
+		quadri
+	-->
+
+	<div class="section" id="section4">
+
+		<div class="row scrollclass" style="text-align:center;">
+			<a href="javascript:$.fn.fullpage.moveSectionUp();"><span class="icon icon-arrow-up2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+		</div><!-- row -->
+
+		<div id="greywrap">
+			<div class="container" id="IParte" >
+				<div class="row">
+					<div class="col-md-12">
+					<h2 class="centered">quadri</h1>
+					<br>
+					</div>
+				</div><!-- row -->
+			</div>
+		</div><!-- greywrap -->
+		<div class="container" >
+			<div class="row pad-top  min-height-cls" >
+				<div class="col-md-12">
+
+					<a id="forth-theme" class="button" href='javascript:ixmaps.setMapType("white");javascript:ixmaps.newTheme("Lecce_Luce",theme_luce_consumo_quadri_aggregate,"clear");'><span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;quadri - consumi aggregati&nbsp;
+					<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a><br>
+
+					<a class="button" href='javascript:ixmaps.setMapType("white");ixmaps.newTheme("Lecce_Luce",theme_luce_consumo_quadri,"clear");ixmaps.newTheme("Lecce_Luce",theme_luce_consumo_quadri_aggregate_text);'><span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;quadri - lampade e consumi aggregati&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a><br>
+
+					<a class="button" href='javascript:ixmaps.setMapType("white");ixmaps.newTheme("Lecce_Luce",theme_quadri_portata_aggregated,"clear");'><span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;portata&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a>
+					<a class="button" href='javascript:ixmaps.setMapType("white");ixmaps.newTheme("Lecce_Luce",theme_quadri_accensione,"clear");'><span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;accensione&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a>
+					<a class="button" href='javascript:ixmaps.setMapType("white");ixmaps.newTheme("Lecce_Luce",theme_quadri_regolatore,"clear");'><span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;regolatore&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a>
+					<a class="button" href='javascript:ixmaps.setMapType("white");ixmaps.newTheme("Lecce_Luce",theme_quadri_tutta_la_notte,"clear");'><span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;tutta la notte&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a>
+
+					</p>								
+				</div>
+			</div><!-- row -->
+
+				<div class="row scrollclass" style="text-align:center;margin-top:1em;">
+				<a href="javascript:$.fn.fullpage.moveSectionDown();"><span class="icon icon-arrow-down2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+			</div><!-- row -->
+
+		</div><!-- container -->
+
+	</div><!-- section -->
+
+	<!--
+		5. tema:
+		armature
+	-->
+
+	<div class="section" id="section5">
+
+		<div class="row scrollclass" style="text-align:center;">
+			<a href="javascript:$.fn.fullpage.moveSectionUp();"><span class="icon icon-arrow-up2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+		</div><!-- row -->
+
+		<div id="greywrap">
+			<div class="container" id="IParte" >
+				<div class="row">
+					<div class="col-md-12">
+					<h2 class="centered">armature</h1>
+					<br>
+					</div>
+				</div><!-- row -->
+			</div>
+		</div><!-- greywrap -->
+		<div class="container" >
+			<div class="row pad-top  min-height-cls" >
+				<div class="col-md-12">
+
+					<a id="fifth-theme" class="button" href='javascript:ixmaps.setMapType("dark");ixmaps.newTheme("Lecce_Luce",theme_luce_unita_colore_glow_armatura,"clear");'>
+					<span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;armature - unità&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a><br>
+
+					<a class="button" href='javascript:ixmaps.setMapType("dark");ixmaps.newTheme("Lecce_Luce",theme_luce_consumo_colore_glow_armatura,"clear");'>
+					<span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;armarture - consumo&nbsp;<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a>
+
+
+					</p>								
+				</div>
+			</div><!-- row -->
+
+				<div class="row scrollclass" style="text-align:center;margin-top:1em;">
+				<a href="javascript:$.fn.fullpage.moveSectionDown();"><span class="icon icon-arrow-down2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+			</div><!-- row -->
+
+		</div><!-- container -->
+
+	</div><!-- section -->
+
+	<!--
+		6. tema:
+		pali
+	-->
+
+	<div class="section" id="section6">
+
+		<div class="row scrollclass" style="text-align:center;">
+			<a href="javascript:$.fn.fullpage.moveSectionUp();"><span class="icon icon-arrow-up2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+		</div><!-- row -->
+
+		<div id="greywrap">
+			<div class="container" id="IParte" >
+				<div class="row">
+					<div class="col-md-12">
+					<h2 class="centered">pali</h1>
+					<br>
+					</div>
+				</div><!-- row -->
+			</div>
+		</div><!-- greywrap -->
+		<div class="container" >
+			<div class="row pad-top  min-height-cls" >
+				<div class="col-md-12">
+
+					<a id="sixth-theme" class="button" href='javascript:ixmaps.setMapType("white");javascript:ixmaps.newTheme("Lecce_Luce",theme_luce_pali,"clear");'><span class="icon icon-arrow-left" style="font-size:0.7em;" ></span>&nbsp;differenti tipi di pali&nbsp;
+					<span class="icon icon-close" style="font-size:0.7em;display:none"></span></a>
+
+					</p>								
+				</div>
+			</div><!-- row -->
+
+				<div class="row scrollclass" style="text-align:center;margin-top:1em;">
+				<a href="javascript:$.fn.fullpage.moveSectionDown();"><span class="icon icon-arrow-down2 tip" data-tip="next" style="font-size:48px;color:#dddddd;"></span></a>
+			</div><!-- row -->
+
+		</div><!-- container -->
+
+	</div><!-- section -->
+
+	<!--
+		footer:
+	-->
+
+	<div class="section" id="section7">
+
+		<div class="container" id="contact" name="contact">
+			<div class="row">
+				<div class="col-lg-8 blog-content">
+
+					<h4>attribuzioni</h4>
+					<p>dati: Comune di Lecce<br>
+					<a href="http://dati.comune.lecce.it/dataset/pali-di-pubblica-illuminazione" target="_blank">Pali di pubblica illuminazione (SHAPE)</a>
+					<a href="https://creativecommons.org/licenses/by/4.0/deed.it" target="_blank"> CC BY 4.0 </a>
+
+				</div>
+			</div><!-- row -->
+		
+		</div><!-- container -->
+
+		<div id="footerwrap">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 blog-content">
+
+					<hr>
+					<h4>creato da <a href="http://ixmaps.com">iXmaps</a> - <a href="http://creativecommons.org/licenses/by/2.5/it/deed.it" target="_top">CC-BY</a></h4>
+						<p> <span class="icon icon-envelop"></span> <a href="#"> info@ixmaps.com</a> <br/>
+							<span class="icon icon-twitter"></span> <a href="#"> @grichter </a> <br/>
+						</p>
+
+						<h4>crediti</h4>
+						<a href="http://linkagency.com">linkagency.com</a> - for the bootstrap template
+						<br><a href="http://alvarotrigo.com/fullPage/">alvarotrigo.com</a> - for the scrolling
+						<br><a href="http://icomoon.io">icomoon.io</a> - for the nice icons
+
+					<p style="text-align:center;padding-right:2em;margin:1em 0 0 0;padding-bottom:-1em;" >
+						<br>
+						<span style="color:#444444;font-size:2.5em;line-height:0.5em;">&middot;&sim;&middot;</span>
+					</p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+<div id="header"  style="position: fixed;top:0;left:10px;width:90%;height:40px;background:#212121" >
+	<div class="container" style="margin-top:11px" >
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+					<div class="header" aria-hidden="true">
+						<div class="linkSocialContainer" style="float:left">
+							<span class="linkContainer"></span>
+							<span class="shareBtns" style="font-size:24px">
+								<a href="javascript:ixmaps.popupShare()">
+								<i class="shareIcon blackHover share_facebook icon-facebook-squared" title="Share on Facebook" tabindex="-1"></i></a>
+								<a href="javascript:ixmaps.popupBookmarks()">
+								<i class="shareIcon blackHover share_twitter icon-bookmark" title="Open bookmarks dialog" tabindex="-1"></i></a>
+								<a href="javascript:ixmaps.popupShare()">
+								<i class="shareIcon blackHover share_bitly icon-share" title="Share a short link" tabindex="-1"></i></a>
+							    <a data-toggle="modal" href="./filter.html" data-target="#modal-dialog-1" class="smoothScroll">
+								<i class="shareIcon blackHover share_bitly icon-filter" title="Filter" tabindex="-1" style="margin-left:0.2em" ></i></a>
+							    <a data-toggle="modal" href="./layer.html" data-target="#modal-dialog-2" class="smoothScroll">
+								<i class="shareIcon blackHover share_bitly icon-map" title="Info" tabindex="-1" style="margin-left:0.2em" ></i></a>
+							    <a data-toggle="modal" href="./about.html" data-target="#modal-dialog-3" class="smoothScroll">
+								<i class="shareIcon blackHover share_bitly icon-info" title="Info" tabindex="-1" style="margin-left:0.2em" ></i></a>
+							</span>
+						</div>
+						<div class="linkSocialContainer" style="float:right;margin-right:-2.5em;margin-top:0.4em;">
+							<span class="linkContainer"></span>
+							<span class="shareBtns" style="font-size:18px">
+								    <a href="javascript:ixmaps.fullScreen()">
+								<i class="shareIcon blackHover share_bitly icon-close" title="Info" tabindex="-1" style="margin-left:0.2em" ></i></a>
+							</span>
+						</div>
+						<div class="logoContainer" style="float:right;margin-right:-10px;display:none">
+							<table>
+								<tr>
+									<td class="logoWrapper">
+										<a class="logoLink" target="_blank" tabindex="-1">
+											<img class="logoImg" src="" height="60px" style="opacity:0.8"/>
+										</a>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</div>	
+
+		<!-- ==== MODAL DIALOG ==== -->
+		<div id="modal-dialog-1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="z-index:9999">
+		  <div class="modal-dialog modal-lg">
+			  <div class="modal-content">
+				...
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			  </div>
+		  </div>
+		</div>
+		<div id="modal-dialog-2" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="z-index:9999">
+		  <div class="modal-dialog modal-lg">
+			  <div class="modal-content">
+				...
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			  </div>
+		  </div>
+		</div>
+		<div id="modal-dialog-3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="white;z-index:9999">
+		  <div class="modal-dialog modal-lg">
+			  <div class="modal-content">
+				...
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			  </div>
+		  </div>
+		</div>
+
+	<script type="text/javascript" src="assets/plugins/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+	<script type="text/javascript" src="assets/js/masonry.pkgd.min.js"></script>
+	<script type="text/javascript" src="assets/js/imagesloaded.js"></script>
+    <script type="text/javascript" src="assets/js/classie.js"></script>
+	<script type="text/javascript" src="assets/js/AnimOnScroll.js"></script>
+
+	<script type="text/javascript" src="assets/plugins/jquery.fullPage.min.js"></script>
+	<script type="text/javascript" src="themes.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$('#fullpage').fullpage({
+				'scrollOverflow': true,
+				'verticalCentered': false,
+				'css3': true,
+				'sectionsColor': ['#212121', '#212121', '#212121', '#212121 '],
+				'navigation': true,
+				'navigationPosition': 'right',
+				'navigationTooltips': ['fullPage.js', 'Powerful', 'Amazing', 'Simple'],
+
+				'afterLoad': function(anchorLink, index){
+					if(index == 1){
+						__doTheme("");
+					} else
+					if(index == 3){
+						__doTheme("");
+					} else
+					if(index == 4){
+						__doTheme("second-theme");
+					} else
+					if(index == 5){
+						__doTheme("third-theme");
+					} else
+					if(index == 6){
+						__doTheme("forth-theme");
+					}
+					if(index == 7){
+						__doTheme("fifth-theme");
+					}
+					if(index == 8){
+						__doTheme("sixth-theme");
+					}
+
+				},
+
+				'onLeave': function(index, nextIndex, direction){
+				}
+			});
+		});
+
+		__doThemeTimeout = null;
+		__doTheme = function(szName) {
+			if ( __doThemeTimeout ){
+				clearTimeout(__doThemeTimeout);
+			}
+			__doThemeTimeout = setTimeout("__doThemeOnTimeout('"+szName+"')",1000);
+		};
+		__doThemeOnTimeout = function(szName) {
+			$("#"+szName).click();
+			eval($("#"+szName).attr("href"));
+		};
+
+		__moveSectionsDown = function(nr){
+			for ( var i=0; i<nr; i++ ){
+				setTimeout("$.fn.fullpage.moveSectionDown();",i*100);
+			}
+		};
+
+		// ------------------------------
+		// set resize handler
+		// ------------------------------
+		$( window ).resize(function() {
+			// refresh scrollspy !!!
+			$('[data-spy="scroll"]').each(function () {  
+			  var $spy = $(this).scrollspy('refresh')  
+			});  
+		});
+
+		var ixmaps = null;
+		if ( window.opener ){
+			ixmaps = window.opener.ixmaps;
+		}else
+		if ( parent ){
+			ixmaps = parent.window.ixmaps;
+		}
+		else{
+			alert("error: missing parent window for themes !");
+		}
+
+		// load themes script
+		$.getScript("./themes.js",function(){
+		});
+		$.getScript("./theme_legend.js",function(){
+		});
+		$.getScript("./index.js",function(){
+		});
+
+		// don't synchronise multiple map frames
+		ixmaps.setSyncMultiMaps(false);
+
+		var nLegendDiv = 0;
+		var legendA = Array(0);
+		ixmaps.setLegendDiv = function(n){
+			nLegendDiv = n;
+		};
+
+		ixmaps.setLoading = function(){
+			ixmaps.showLoading("... caricando ...");
+		};
+
+		// ------------------------------
+		// if map ready, make first theme
+		// ------------------------------
+		ixmaps.onMapReady = function(){
+
+			if ( 1 ){
+				ixmaps.setMapFeatures("popupdelay:250;toolmargintop:60;flushPaintShape:500;flushChartDraw:5000;objectscaling:dynamic;dynamiclabel:true");
+				ixmaps.setScaleParam({"lineScaling":0.421875,"labelScaling":1.3,"normalSizeScale":50000});
+				ixmaps.setLocalString("... processing ...","...");
+				ixmaps.setView( [40.350905625158425,18.172330856323242] ,13); 
+			}
+			// enable update of the page url in the browser address bar (HTML5)
+			// thus themes,zoom and pan are coded into an actual URL
+			//ixmaps.embeddedApi.embeddedApi.fDynamicPageHistory = false;
+
+			__doTheme("first-theme");
+
+		};
+
+
+		// --------------------------------------------------------------
+		// define click extension to
+		// check/highlight the theme button 
+		// --------------------------------------------------------------
+
+		// array to store the clicked objects for onRemoveTheme callback
+		var clickA = new Array(0);
+
+		// store the last clicked object for onNewTheme callback
+		var lastClicked = null;
+		$("a").click(function () {
+			if ( String($(this).attr("href")).match(/newtheme/i) ){
+				lastClicked = $(this);
+			}
+		});
+		// change 'button' style to show presence of theme
+		__setThemeButtonStyle = function(buttonObj,fFlag){
+			if ( fFlag ){
+				buttonObj.css("color","#ffffff");
+				buttonObj.css("background","#1D76B0");
+				buttonObj.css("padding","0em 0.5em 0.15em 0.3em");
+				buttonObj.css("margin-left","-0.3em");
+				buttonObj.css("border-radius","1em");
+				buttonObj.css("line-height","0.8");
+				buttonObj.children().last().css("display","inline");
+			}else{
+				buttonObj.css("color","");
+				buttonObj.css("background","");
+				buttonObj.css("padding","0");
+				buttonObj.css("margin","0");
+				buttonObj.css("border-radius","0em");
+				buttonObj.children().last().css("display","none");
+			}
+		}
+
+		// ------------------------------
+		// do something on theme creation
+		// ------------------------------
+
+		// intercept theme creation, to mark active themes
+		ixmaps.htmlgui_onNewTheme = function(szId){
+			__setThemeButtonStyle(lastClicked,true);
+			clickA[szId] = lastClicked;
+			if ( actThemeId ){
+				ixmaps.removeTheme(actThemeId);
+			}
+			actThemeId = szId;
+		};
+
+		// intercept theme deletion, to remove active themes mark
+		ixmaps.htmlgui_onRemoveTheme = function(szId){
+			if ( clickA[szId] ){
+				__setThemeButtonStyle(clickA[szId],false);
+				clickA[szId] = null;
+				lastClicked  = null;
+			}
+			ixmaps.removeLegendDiv(szId);
+			ixmaps.setTitle("");
+		};
+
+		var nRotChart = 0;
+		ixmaps.changeChart = function(){
+			switch(nRotChart){
+				case 0:
+				ixmaps.changeThemeStyle(null,"type:VALUEBACKGROUND|NOINLINETEXT|VALUES|CHART|SYMBOL|SEQUENCE|STAR|SORT|RANDOM|SIZE|SUM","set");
+				break;
+				case 1:
+				ixmaps.changeThemeStyle(null,"type:CHART|SYMBOL|SEQUENCE|CENTER|SORT|DOWN|SUM|VALUEBACKGROUND|SIZE|SUM","set");
+				break;
+				case 2:
+				ixmaps.changeThemeStyle(null,"type:VALUEBACKGROUND|NOINLINETEXT|CHART|BAR|SIZE|SUM","set");
+				break;
+				case 3:
+				ixmaps.changeThemeStyle(null,"type:VALUEBACKGROUND|NOINLINETEXT|CHART|PIE|SIZE|SUM","set");
+				break;
+				case 4:
+				ixmaps.changeThemeStyle(null,"type:VALUEBACKGROUND|NOINLINETEXT|CHART|PIE|DONUT|SIZE|SUM","set");
+				break;
+			}
+			nRotChart = (nRotChart+1)%5;
+		};
+
+		ixmaps.popupBookmarks = function(){
+			var szElement = "bookmarks";	
+			ixmaps.embeddedApi.embeddedApi.openDialog(null,'bookmarks','./history.html','Bookmarks',null,300,null);
+		};
+
+		ixmaps.popupShare = function(){
+			var szElement = "bookmarks";	
+			ixmaps.embeddedApi.embeddedApi.openDialog(null,'share','./share.html','Share','10,103',350,450);
+		};
+
+		ixmaps.popupInfo = function(){
+			var szElement = "bookmarks";	
+			ixmaps.embeddedApi.embeddedApi.openDialog(null,'info','../doc/help_en.html','Help','10,103',500,600);
+		};
+
+		ixmaps.setMapType = function(szType){
+			if ( szType == "white" ){
+				ixmaps.htmlgui_setMapTypeId("CartoDB - Positron");
+			}else
+			if ( szType == "dark" ){
+				ixmaps.htmlgui_setMapTypeId("CartoDB - Dark matter");
+			}
+		};
+
+		ixmaps.htmlgui_colorScheme = function(objTheme){
+			if ( objTheme.colorScheme == "user" ){
+				for ( i=0; i<objTheme.szLabelA.length; i++){
+					if ( objTheme.szLabelA[i].match(/LED/i) ){
+						objTheme.colorScheme[i] = "#ddddff";
+					}else
+					if ( objTheme.szLabelA[i].match(/SODIO/i) ){
+						objTheme.colorScheme[i] = "#ff9900";
+					}else
+					if ( objTheme.szLabelA[i].match(/mercurio/i) ){
+						objTheme.colorScheme[i] = "#ffeeaa";
+					}else
+					if ( objTheme.szLabelA[i].match(/joduri/i) ){
+						objTheme.colorScheme[i] = "#ffffff";
+					}else
+					if ( objTheme.szLabelA[i].match(/halo/i) ){
+						objTheme.colorScheme[i] = "#ffffff";
+					}else{
+						objTheme.colorScheme[i] = "#ffffdd";
+					}
+				}
+			}
+		}
+
+		/**
+		 * intercept theme creation, to make the theme legend
+		 */
+
+		ixmaps.htmlgui_onLegendFooter = function(szId,themeObj){ 
+
+			var themeDef = themeObj.def();
+
+			var szHtml = "";
+			if ( themeObj.partsA.length > 2 ){
+				szHtml += "<p class='inline-legend' style='padding-left:0;margin-top:-0.5em'><i class='icon-arrow-up' title='arrow up' ></i> clicca sui colori per evidenziare</p>";
+			}
+			if ( themeDef.style.type.match(/AGGREGATE/) && themeDef.style.gridwidthpx ){
+				szHtml += "<p style=margin-top:-10px'> aggregato per griglia di "+ themeDef.style.gridwidthpx +" pixel</p>";
+				szHtml += "<p>";
+				szHtml += "<button type='button' class='btn btn-default' onclick='javascript:ixmaps.changeThemeStyle(null,\"gridwidthpx:10\",\"set\");'>10</button>";
+				szHtml += "<button type='button' class='btn btn-default' onclick='javascript:ixmaps.changeThemeStyle(null,\"gridwidthpx:20\",\"set\");'>20</button>";
+				szHtml += "<button type='button' class='btn btn-default' onclick='javascript:ixmaps.changeThemeStyle(null,\"gridwidthpx:50\",\"set\");'>50</button>";
+				szHtml += "<button type='button' class='btn btn-default' onclick='javascript:ixmaps.changeThemeStyle(null,\"gridwidthpx:100\",\"set\");'>100</button>";
+				szHtml += "</p>";
+			} else
+			if ( themeDef.style.type.match(/AGGREGATE/) && themeDef.style.gridwidth ){
+				szHtml += "<p style=margin-top:-10px'> aggregato per griglia di "+ Number(themeDef.style.gridwidth).toFixed(0) +" metri</p>";
+				szHtml += "<p>";
+				szHtml += "<button type='button' class='btn btn-default "+((themeDef.style.gridwidth==100?"focus":""))+"' onclick='javascript:ixmaps.changeThemeStyle(null,\"gridwidth:100\",\"set\");'>100</button>";
+				szHtml += "<button type='button' class='btn btn-default "+((themeDef.style.gridwidth==250?"focus":""))+"' onclick='javascript:ixmaps.changeThemeStyle(null,\"gridwidth:250\",\"set\");'>250</button>";
+				szHtml += "<button type='button' class='btn btn-default "+((themeDef.style.gridwidth==500?"focus":""))+"' onclick='javascript:ixmaps.changeThemeStyle(null,\"gridwidth:500\",\"set\");'>500</button>";
+				szHtml += "<button type='button' class='btn btn-default "+((themeDef.style.gridwidth==1000?"focus":""))+"' onclick='javascript:ixmaps.changeThemeStyle(null,\"gridwidth:1000\",\"set\");'>1000</button>";
+				szHtml += "</p>";
+				szHtml += "<div class='btn-group' style='margin-bottom:1em' ole='group' aria-label='...'>";
+				szHtml += "  <button type='button' class='btn btn-default "+(themeDef.style.symbols == "square"?"focus":"")+"' onclick='ixmaps.changeThemeStyle(null,\"type:RECT\",\"add\");ixmaps.changeThemeStyle(null,\"symbols:square\",\"set\");'>rettangoli</button>";
+				szHtml += "  <button type='button' class='btn btn-default "+(themeDef.style.symbols == "circle"?"focus":"")+"' onclick='ixmaps.changeThemeStyle(null,\"type:RECT\",\"add\");ixmaps.changeThemeStyle(null,\"symbols:circle\",\"set\");'>cerchi</button>";
+				szHtml += "  <button type='button' class='btn btn-default "+(themeDef.style.symbols == "hexagon"?"focus":"")+"' onclick='ixmaps.changeThemeStyle(null,\"type:RECT\",\"remove\");ixmaps.changeThemeStyle(null,\"symbols:hexagon\",\"set\");'>esagoni</button>";
+				szHtml += "</div>";
+			} else
+			if ( themeDef.style.type.match(/AGGREGATE/) && themeDef.style.gridwidth000 ){
+				szHtml += "<p style='color:#444444;margin-top:-10px'>"+
+							"<div class='dropdown' >aggregato per griglia di "+
+							"<button class='btn btn-default dropdown-toggle' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> "+
+							themeDef.style.gridwidth+
+							" <span class='caret'></span>"+
+							"</button>"+
+							 "<ul class='dropdown-menu' aria-labelledby='dropdownMenu1'>"+
+								"<li><a href='javascript:ixmaps.changeThemeStyle(\""+szId+"\",\"gridwidth:100\",\"set\");'>100 metri</a></li>"+
+								"<li><a href='javascript:ixmaps.changeThemeStyle(\""+szId+"\",\"gridwidth:250\",\"set\");'>250 metri</a></li>"+
+								"<li><a href='javascript:ixmaps.changeThemeStyle(\""+szId+"\",\"gridwidth:500\",\"set\");'>500 metri</a></li>"+
+								"<li><a href='javascript:ixmaps.changeThemeStyle(\""+szId+"\",\"gridwidth:1000\",\"set\");'>1000 metri</a></li>"+
+							"</ul> metri"+
+							"</div>";
+				szHtml += "</p>";
+			} 
+
+			szHtml += "</div>";
+
+			return szHtml;
+		};
+
+	</script>
+
+
+</body>
+</html>

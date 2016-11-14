@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+
+<head>
+  <title>IXMAPS Sample</title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="Guenter Richter">
+  <meta name="Keywords" content="map SVG XML Javascript Google Maps">
+  <meta name="Description" content="Test page for SVGGIS map applications on Google Basemap">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+  <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+
+  <!--========================================================================= 
+	  we need scripting
+  <!--========================================================================= -->
+	
+  <noscript><div style="position:absolute;top:100px;left:100px;width:500px"><b>JavaScript must be enabled in order for you to use iXMaps.</b><br><br>
+  However, it seems JavaScript is either disabled or not supported by your browser.
+  To view the map application, enable JavaScript by changing your browser options, and then
+  try again.</div>
+  </noscript>
+
+  <!--========================================================================= -->
+
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/ixmaps-ui.css" rel="stylesheet" type="text/css"/>
+
+  <!--========================================================================= -->
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="http://code.jquery.com/ui/1.8.16/jquery-ui.min.js"></script>
+
+  <script src="../libs/beforeafter/js/jquery.beforeafter-canib.js"></script>
+  <script src="../libs/getUrlParam/js/jquery.getUrlParam.js"></script>
+  <script src="../libs/modernizr/js/testsvg.js"></script>
+
+  <script type="text/javascript" src="../js/htmlgui.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_query.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_sync.js" > </script>
+  <script type="text/javascript" src="../js/htmlgui_sync_Mapstraction.js" > </script>
+  <script type="text/javascript" charset="utf-8" src="../libs/mxn-2.0.14/mxn.js?(googlev3, yahoo, microsoft, openlayers)"></script> 
+
+  <script type="text/javascript" src="../js/htmlgui_story.js" > </script>
+
+  <!--========================================================================= -->
+<style type="text/css">
+	a:hover {
+		background-color:yellow;
+		text-decoration: underline;  
+	} 
+</style>
+
+<script type="text/javascript">
+
+(function( ixmaps, $, undefined ) {
+
+	$(document).ready(function() {
+
+		if (!Modernizr.svg){
+			alert("svg not supported");
+		}
+		
+		if ( window.opener ){
+			ixmaps.parentApi = window.opener.ixmaps;
+		}else
+		if ( parent ){
+			ixmaps.parentApi = parent.window.ixmaps;
+		}
+		else{
+			alert("error: missing parent window for parameter !");
+		}
+		// register the embedded map,
+		// in case the parent page holds more than one embedded map, we can sync them
+		if ( ixmaps.parentApi ){
+			ixmaps.parentApi.registerApi(ixmaps,$(document).getUrlParam('name'));
+		}
+
+		var szMapService = unescape($(document).getUrlParam('mapservice'));
+
+		// check predefined map height against window height
+
+		var maxHeight = window.innerHeight;
+		var maxWidth = window.innerWidth;
+		maxHeight -= parseInt($("#ixmap").css('top'));
+
+		$("#ixmap").css('height',maxHeight +'px');
+		$("#ixmap").css('width',maxWidth +'px');
+		$("#banner").css('width',maxWidth +'px');
+
+		// create the map app
+		if ($(document).getUrlParam('autoplay')!="false"){
+		map = new ixmaps.syncMap("ixmap",{	mapService:unescape($(document).getUrlParam('mapservice')),
+											maptype:$(document).getUrlParam('maptype'),
+											svg:$(document).getUrlParam('svggis'),
+											mapsize:"fix",
+											mode:"nolegend",
+											controls:"small"});	
+		}else{
+			$( "#divstart" ).css("visibility","visible");
+			$( "#divloading" ).css("visibility","hidden");
+//			$( "#start-text" ).button();
+		}
+
+		$( "#zoom" ).button({ icons:{secondary:'ui-icon-zoomin'}});
+		$( "#pan" ).button({ icons:{secondary:'ui-icon-arrow-4'}});
+		$( "#info" ).button({ icons:{secondary:'ui-icon-info'}});
+		$( "#select" ).button({ icons:{secondary:'ui-icon-extlink'}});
+		$( "#tools" ).buttonset();
+
+		$( "#themes" ).button({ icons:{secondary:'ui-icon-triangle-1-s'}}).click(function(e){
+							ixmaps.openDialog(e,'sidebar','embed_story.html?story='+ixmaps.storyUrl,'Temi','left',200,600,1);
+							});
+
+		$( "#moremaps" ).button({ icons:{secondary:'ui-icon-triangle-1-s'}}).click(function(e){
+							ixmaps.openMegaBox(e,'dialog','./maps.html','Select map','auto',850,700,0.8);
+							});
+		$( "#chartsA" ).button().click(function(e){
+							ixmaps.changeObjectScaling(0.75);
+							});
+		$( "#chartsB" ).button().click(function(e){
+							ixmaps.toggleThemeValues();
+							});
+		$( "#chartsC" ).button().click(function(e){
+							ixmaps.changeObjectScaling(1/0.75);
+							});
+		$( "#charts" ).buttonset();
+
+		$( "#toolbar" ).css("visibility","visible");
+
+
+		ixmaps.loadStory($(document).getUrlParam('story'));	
+	
+	});
+	__startMap = function(){
+		$( "#divstart" ).css("visibility","hidden");
+		map = new ixmaps.syncMap("ixmap",{	mapService:unescape($(document).getUrlParam('mapservice')),
+											maptype:$(document).getUrlParam('maptype'),
+											svg:$(document).getUrlParam('svggis'),
+											mapsize:"fix",
+											mode:"nolegend",
+											controls:"small"});	
+	};
+
+	ixmaps.syncSlaveMap = function(ptSW,ptNE,nZoom){
+		ixmaps.parentApi.syncEmbed(window,ptSW,ptNE,nZoom);
+	};
+
+	ixmaps.syncEmbedMap = function(ptSW,ptNE,nZoom){
+		ixmaps.htmlgui_setCenterAndZoom({lat:(ptSW.lat+ptNE.lat)/2,lng:(ptSW.lng+ptNE.lng)/2},nZoom);
+	};
+
+}( window.ixmaps = window.ixmaps || {}, jQuery ));
+
+</script>
+
+  <!--========================================================================= -->
+
+</head>
+
+<body style="background:#f8f8f8;margin:0px;padding:0px;">
+
+	<!--========================================================================= 
+		the menu
+	<!--========================================================================= -->
+
+		<div id="banner" style="position:absolute;left:0px;top:0px;height:20px;">
+
+			<span id="toolbar" style="visibility:hidden"">
+				<form>
+				<span id="tools" >
+					<input type="radio" id="zoom"   name="tools" onclick="javascript:ixmaps.mapTool('zoomrect')" />
+						<label for="zoom" title="zoom with rect" >Zoom</label>
+					<input type="radio" id="pan"    name="tools" onclick="javascript:ixmaps.mapTool('pan')" checked="checked" />
+						<label for="pan" title="pan with basemap" >Pan</label>
+					<input type="radio" id="info"   name="tools" onclick="javascript:ixmaps.mapTool('info')" />
+						<label for="info" title="show info of map items">Info&nbsp;</label>
+					<input type="radio" id="select" name="tools" onclick="javascript:ixmaps.mapTool('selectrect')" />
+						<label for="select" title="select map items with rect">Select</label>
+				</span>
+
+				<button type="button" id="themes" ><label for="themes">themes&nbsp;&nbsp;</label></button>
+
+				<div id="chartsdiv" style="float:right;margin-top:3px;margin-right:0px;" >
+					<span id="charts" >
+						<button type="button" id="chartsA" style="height:22px;" >
+							<label for="chartsA" title="bigger charts">
+								<img src="../images/zoom-.png" style="position:relative;left:2px;top:1px;" height="14" />
+							</label></button>
+						<button type="button" id="chartsB" style="height:22px;top:-2px;" >
+							<label for="chartsB" title="toggle value display">
+								values
+							</label></button>
+						<button type="button" id="chartsC" style="height:22px;" >
+							<label for="chartsC" title="smaller charts">
+								<img src="../images/zoom+.png" style="position:relative;left:2px;top:1px;" height="14" />
+							</label></button>
+					</span>
+				</div>
+
+				</form>
+
+			</span>
+
+
+		</div>
+
+	<!--========================================================================= 
+		the map space
+	<!--========================================================================= -->
+
+		<div id="ixmap" style="position:absolute;top:27px;left:0px;">
+		</div>
+
+	<!--========================================================================= 
+		loading, messages, help etc
+	<!--========================================================================= -->
+
+		<div id="divloading" style="pointer-events:none;z-index:99">
+			<div id="loading-text-div" style="position:absolute;top:42%;width:100%">
+				<p id="loading-text" style="font-family:serif;font-size:48px;color:#f0f0f0;text-align:center">
+				</p>
+			</div>
+			<div id="loading-image" style="position:absolute;top:40%;left:45%;">
+				<p id="loading" style=" margin-top:1em;
+										">
+										<img style="margin-bottom:-12px;" alt="mill" src="../images/loading.gif" />
+				</p>
+			</div>
+			<div id="logo" style="position:absolute;bottom:10px;right:10px;">
+				<img src="../images/ixmaps_logo_grey_transparent.png" height="16px"/><span style="color:#bbbbbb;font-family:verdana;font-style:italic;font-size:10px;"> loading ...<span> 
+			</div>
+		</div>
+		<div id="divstart" style="	visibility:hidden;
+								position:absolute;
+								top:0px;
+								left:0px;
+								width:100%;
+								height:100%;
+								z-index:1000;"  >
+			<div id="start-text-div" style="position:absolute;top:45%;left:40%">
+				<a id="start-text" href="javascript:__startMap()" 
+							style="font-family:serif;
+								font-size:48px;
+								color:#666666;
+								background-color:#dddddd;
+								padding: 0px 12px 3px 8px;
+								-moz-border-radius: 15px;
+								border-radius: 15px;
+								text-align:center">start</a>
+				</p>
+			</div>
+		</div>
+		<div id="velo" style="	visibility:hidden;
+								background-color:#444444;
+								opacity:0.2;
+								position:absolute;
+								top:0px;
+								left:0px;
+								width:100%;
+								height:100%;
+								z-index:1000;" width="100%" height="100%"  >
+		</div>
+		<div id="help" style="visibility:hidden"  >
+		</div>
+		<div id="dialog" style="visibility:hidden"  >
+		</div>
+		<div id="sidebar" style="visibility:hidden"  >
+		</div>
+		<div id="projects" style="visibility:hidden;"  >
+		</div>
+
+	<!--========================================================================= -->
+	</body>
+
+<script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6"></script> 
+<script src="http://openlayers.org/api/OpenLayers.js"></script> 
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+</html>

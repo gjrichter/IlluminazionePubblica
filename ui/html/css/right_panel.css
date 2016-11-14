@@ -1,0 +1,18 @@
+.rightPanel { width:45px; position:fixed; right:0; top:30%; z-index:3 }
+.rightPanel .importPlaces { width:45px; text-align:center; background:rgba(255, 255, 255, 0.6); -webkit-border-top-left-radius:8px; -moz-border-radius-topleft:8px; border-top-left-radius:8px; border:solid 1px #d8e6f4; padding:10px 0; float:left }
+.rightPanel h1 { font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#5d6975; padding-bottom:5px }
+.rightPanel li { padding:0 9px; list-style:none }
+.rightPanel .foursquare a { width:27px; height:27px; display:block; background:url(/images/html5/icon-foursquare.png) no-repeat }
+.rightPanel .foursquare a:hover { background-position:0 -27px }
+.rightPanel .sharePlaces { width:45px; text-align:center; background:rgba(255, 255, 255, 0.6); -webkit-border-bottom-left-radius:8px; -moz-border-radius-bottomleft:8px; border-bottom-left-radius:8px; border:solid 1px #d8e6f4; -moz-border-radius-topleft:8px; border-top-left-radius:8px; border:solid 1px #d8e6f4; padding:10px 0; float:left; margin-top:1px; padding-bottom:5px }
+.rightPanel .sharePlaces li a { display:block; width:28px; height:29px; margin-bottom:5px }
+.rightPanel .sharePlaces li a:hover { background-position:0 -29px }
+.rightPanel .sharePlaces .facebook a { background:url(/images/html5/icon-facebook-share.png) no-repeat }
+.rightPanel .sharePlaces .twitter a { background:url(/images/html5/icon-twitter-share.png) no-repeat }
+.rightPanel .sharePlaces .mail a { background:url(/images/html5/icon-mail-share.png) no-repeat }
+.rightPanel .sharePlaces .share a { background:url(/images/html5/icon-share.png) no-repeat }
+.rightPanel .mapview { width:45px; text-align:center; background:rgba(255, 255, 255, 0.6); -webkit-border-bottom-left-radius:8px; -moz-border-radius-bottomleft:8px; border-bottom-left-radius:8px; border:solid 1px #d8e6f4; padding:10px 0; float:left; margin-top:1px; position:relative }
+.rightPanel .mapviewHover { width:155px; position:absolute; top:0; right:50px; background:#bdd4ec; -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px; border:solid 1px #f5f8fc; display:none }
+.rightPanel .mapviewHover li { padding:10px; text-align:center; float:left; border-right:solid 1px #f5f8fc; border-bottom:solid 1px #f5f8fc; list-style:none }
+.rightPanel .mapviewHover li.noBodrRight { border-right:none!important }
+.rightPanel .mapviewHover li.noBodrBottom { border-bottom:none!important }
