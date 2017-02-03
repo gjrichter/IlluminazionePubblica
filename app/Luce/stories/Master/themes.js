@@ -107,6 +107,7 @@
 		"scale": "0.2",
 		"aggregation": "mean",
 		"evidence": "isolate",
+        "showdata":"true",
 		"title": "Tipo di illuminazione - consumo"
 		}
 	};
@@ -135,7 +136,8 @@
 		"titlefield": "indirizzo",
 		"aggregation": "mean",
 		"evidence": "isolate",
-		"title": "Illumunazione pubblica - tipo di lampada e consumo"
+        "showdata":"true",
+		"title": "Illuminazione pubblica - tipo di lampada e consumo"
 		}
 	};
 
@@ -163,7 +165,8 @@
 		"titlefield": "indirizzo",
 		"aggregation": "mean",
 		"evidence": "isolate",
-		"title": "Illumunazione pubblica - tipo di lampada e consumo"
+        "showdata":"true",
+		"title": "Illuminazione pubblica - tipo di lampada e consumo"
 		}
 	};
 
@@ -191,7 +194,8 @@
 		"titlefield": "indirizzo",
 		"aggregation": "mean",
 		"evidence": "isolate",
-		"title": "Illumunazione pubblica - tipo di lampada e consumo"
+        "showdata":"true",
+		"title": "Illuminazione pubblica - tipo di lampada e consumo"
 		}
 	};
 
@@ -218,7 +222,7 @@
 		"titlefield": "indirizzo",
 		"aggregation": "mean",
 		"evidence": "isolate",
-		"title": "Illumunazione pubblica - tipo di lampada e consumo"
+		"title": "Illuminazione pubblica - tipo di lampada e consumo"
 		}
 	};
 
@@ -246,7 +250,7 @@
 		"titlefield": "indirizzo",
 		"aggregation": "mean",
 		"evidence": "isolate",
-		"title": "Illumunazione pubblica - armature e consumo"
+		"title": "Illuminazione pubblica - armature e consumo"
 		}
 	};
 
@@ -273,7 +277,7 @@
 		"titlefield": "indirizzo",
 		"aggregation": "mean",
 		"evidence": "isolate",
-		"title": "Illumunazione pubblica - armature e unità"
+		"title": "Illuminazione pubblica - armature e unità"
 		}
 	};
 
@@ -300,7 +304,7 @@
 		"titlefield": "indirizzo",
 		"aggregation": "mean",
 		"evidence": "isolate",
-		"title": "Illumunazione pubblica - tipo di palo"
+		"title": "Illuminazione pubblica - tipo di palo"
 		}
 	};
 
@@ -392,7 +396,7 @@
 		"gridwidthpx": "50",
 		"aggregation": "mean",
 		"evidence": "isolate",
-		"title": "Illumunazione Pubblica - Consumo"
+		"title": "Illuminazione Pubblica - Consumo"
 		}
 	};
 
@@ -423,7 +427,7 @@
 		"gridwidthpx": "50",
 		"aggregation": "mean",
 		"evidence": "isolate",
-		"title": "Illumunazione Pubblica - Consumo"
+		"title": "Illuminazione Pubblica - Consumo"
 		}
 	};
 
